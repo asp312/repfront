@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Задание: Используя API реализовать Github Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Необходимо используя API Github создать Front-end приложение, которое состоит из двух страниц:
 
-## Available Scripts
+1. `Главная страница` – список репозиториев с возможностью поиска и страницами
+2. `Карточка репозитория` – страница с более детальной информацией по репозиторию
 
-In the project directory, you can run:
+## Главная страница
 
-### `yarn start`
+Ключевые элементы страницы:
+- `Поле для поиска` репозиториев
+- `Список репозиториев`
+- `Paginator` – список страниц
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+При введении текста в `Поле для поиска`, должен происходить поиск по названию и выводиться его результат в `Список репозиториев` ниже.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Если в поле ничего не введено, то показывается список 10ти самых популярных репозиториев.
 
-### `yarn test`
+Порядок сортировки репозиториев – по в кол-ву звёзд на github (от большего к меньшему)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Примерная структура элементов списка:
 
-### `yarn build`
+`[Название репозитория]` - `[кол-во звёзд на github]` - `[дата последнего коммита]` - `[ссылка на Github]`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Внизу страницы есть `Paginator` вида [1, 2, 3, 4, 5]. Не показывать больше 10ти страниц.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+При клике на вторую страницу показываются репозитории с 11 по 20
+При клике на третью страницу показываются репозитории с 21 по 30
+… и т.д.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Выбранная страница в `Paginator` должна отличаться по стилю от всех остальных.
 
-### `yarn eject`
+При перезагрузке страницы состояние выбранных фильтров (поиска и страницы) должно сохраняться и использоваться для первоначального запроса.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Сохранять ответ от API на тысячи репозиториев в приложении нельзя, поиск должен происходить на стороне API.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+При клике на название репозитория происходит переход на `Карточку репозитория`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Карточка репозитория
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Она должна иметь следующую структуру:
 
-## Learn More
+- [`Название репозитория`] - [`кол-во звёзд на github`] - [`дата последнего коммита`]
+- [`Фото владельца репозитория, если есть`] - [`Nickname владельца репозитория с ссылкой на него`]
+- [`Список используемых языков в репозитории`]
+- [`Краткое описание репозитория`]
+- [`10 наиболее активных контрибьютеров`]
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Документация по API Github**: https://developer.github.com/v3/
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Требования:**
 
-### Code Splitting
+- Исходный код решения должен быть выложен c вашего аккаунта на http://github.com/
+- Готовые UI библиотеки использовать нельзя. Верстаем сами
+- Проект должен запускаться командой `npm start` в консоли, после чего он должен быть доступен для просмотра по адресу http://localhost:3000/
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Дополнительно:**
 
-### Analyzing the Bundle Size
+Ограничений по технологиям кроме UI библиотеки нет – выбирайте любые инструменты для выполнения задания. Главное, чтобы вашим приложением можно было пользоваться в рамках описанных сценариев. Насчёт дизайна можете много не думать – ссылок, кнопок и заголовков будет достаточно.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Тем не менее сделайте это так, чтобы этим можно было пользоваться. Ведь в итоге вы будете проектировать интерфейсы для людей.
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
