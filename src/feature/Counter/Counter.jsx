@@ -20,6 +20,5 @@ export const Counter = ({}) => {
             <Button onClick={decrement} buttonText={'Уменьшить'}/>
             <Button onClick={increment} buttonText={'Увеличить'}/>
         </div>
-
     );
 }
