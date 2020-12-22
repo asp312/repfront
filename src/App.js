@@ -1,13 +1,6 @@
-import React from 'react';
-
-import { Counter } from './feature';
-
 function App() {
-
   return (
-      <>
-          <Counter />
-      </>
+    <h1>Test</h1>
   );
 }
 
