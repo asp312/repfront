@@ -7,7 +7,7 @@ export const Repository = ({
     avatar,
     description
 }) => (
-    <li className="rep-item">
+    <li className="rep-item">                                                                                                                                                                           
         <div>
             <div className="info-item">
                 <aside className="rep-name">
