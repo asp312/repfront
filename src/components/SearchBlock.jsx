@@ -1,12 +1,13 @@
 import React from 'react';
-import Search from 'component';
-import SearchButton from 'component';
 
-const SearchBlock = () => {
+import { SearchPanel } from './Search';
+import { SearchButton } from './Button';
+
+export const SearchBlock = () => {
     return (
         <div>
-        <Search />
-        <SearchButton />
+            <SearchPanel />
+            <SearchButton buttonText={'Найти'} />
         </div>
     );
 };

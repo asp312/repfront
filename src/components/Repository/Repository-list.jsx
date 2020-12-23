@@ -1,13 +1,21 @@
 import React from 'react';
-import Reposirory from 'components';
+import { Repository } from './Repository';
 
 
-const ReposiroryList = ({mockRepositoryData}) => {
-
-    mockRepositoryData.map((item) => {
-        return(
-            <Reposirory/>
-        )
-    });
+export const RepositoryList = ({mockRepositoryData}) => {
+    return (
+        <ul>
+            {
+                mockRepositoryData.map((item, index) => {
+                    return (
+                        <Repository 
+                            key={index} 
+                            repositoryInfo={item} 
+                        />
+                    )
+                })
+            }
+        </ul>
+    );
 };
 
