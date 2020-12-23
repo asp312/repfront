@@ -1,0 +1,75 @@
+body{
+  margin: 0 auto;
+}
+.main-header{
+  height: 75px;
+  background-color: #dcdcdc;
+}
+.origin-main{
+  background-color: blue;
+}
+.search-block{
+  width: 400px;
+  margin: 0 auto;
+}
+.search-button{
+  border-radius: 10%;
+  border: none;
+  background-color: red;
+  margin-left: 10px;
+}
+.list-container{
+  width: 1300px;
+  height: auto;
+  margin: auto;
+}
+.rep-list{
+  width: 1300px;
+  display: grid;
+  grid-template-columns: repeat(3, 400px);
+  grid-template-rows: repeat(3, minmax(300px, auto));
+  grid-auto-rows: minmax(200px, auto);
+  column-gap: 40px;
+  row-gap: 20px;
+  list-style: none;
+}
+.rep-item{
+  background-color: white;
+}
+.info-item{
+  height: 40px;
+  display: grid;
+  grid-template-columns: 120px 120px 120px;
+  column-gap: 7px;
+  border: 1px solid black;
+  justify-content: center;
+}
+.rep-name{
+  border: 1px solid black;
+  text-align: center;
+  line-height: 40px;
+}
+.rep-stars{
+  border: 1px solid black;
+  text-align: center;
+}
+.rep-comit{
+  border: 1px solid black;
+  text-align: center;
+}
+.info-user{
+  height: 180px;
+  display: grid;
+  grid-template-columns: 180px 180px;
+  column-gap: 7px;
+  border: 1px solid black;
+  justify-content: center;
+}
+.pic{
+  width: 160px;
+  height: 160px;
+}
+.username{
+  width: 100px;
+  height: 100px;
+}
