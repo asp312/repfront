@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 export const Repository = ({
@@ -27,9 +28,11 @@ export const Repository = ({
                     <aside className="pic-av">
                         <img src={avatar} className="pic" alt="alt" />
                     </aside>
-                    <aside className="username">
-                        <p>{userName}</p>
-                    </aside>
+                    <Link to={'/repository'}>
+                        <aside className="username">
+                            <p>{userName}</p>
+                        </aside>
+                    </Link>
                 </div>
                 <div className="item-description">{description}</div>
             </div>
