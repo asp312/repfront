@@ -1,4 +1,6 @@
 import React from 'react';
+import './style.css';
+
 
 import { mockRepositoryData } from './mock/repositories';
 import { SearchBlock, Title, RepositoryList } from './components';
