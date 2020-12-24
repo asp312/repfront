@@ -6,6 +6,9 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -23,7 +26,114 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "airbnb"
+    ],
+    "plugins": [
+      "react",
+      "jsx-a11y",
+      "import"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.js?(x)"
+        ],
+        "rules": {
+          "jsx-quotes": [
+            "error",
+            "prefer-double"
+          ],
+          "sort-imports": [
+            "error",
+            {
+              "ignoreCase": false,
+              "ignoreDeclarationSort": true,
+              "ignoreMemberSort": false,
+              "memberSyntaxSortOrder": [
+                "none",
+                "all",
+                "multiple",
+                "single"
+              ]
+            }
+          ],
+          "linebreak-style": [
+            "error",
+            "unix"
+          ],
+          "no-case-declarations": "off",
+          "react/jsx-filename-extension": 0,
+          "react/jsx-one-expression-per-line": 0,
+          "import/no-extraneous-dependencies": 0,
+          "import/newline-after-import": [
+            "error",
+            {
+              "count": 2
+            }
+          ],
+          "no-multiple-empty-lines": [
+            "error",
+            {
+              "max": 2
+            }
+          ],
+          "import/no-dynamic-require": 0,
+          "global-require": 0,
+          "import/prefer-default-export": 0,
+          "react/jsx-indent": [
+            2,
+            4
+          ],
+          "react/jsx-indent-props": [
+            2,
+            4
+          ],
+          "indent": [
+            "error",
+            4
+          ],
+          "dot-notation": 0,
+          "import/extensions": [
+            "error",
+            {
+              "js": "never",
+              "jsx": "never"
+            }
+          ],
+          "max-len": [
+            "error",
+            {
+              "code": 120,
+              "tabWidth": 4,
+              "ignoreStrings": true
+            }
+          ],
+          "object-curly-newline": [
+            "error",
+            {
+              "minProperties": 2
+            }
+          ],
+          "implicit-arrow-linebreak": [
+            "error",
+            "below"
+          ],
+          "react/jsx-props-no-spreading": 0,
+          "react/destructuring-assignment": [
+            1,
+            "always",
+            {
+              "ignoreClassFields": true
+            }
+          ],
+          "react/static-property-placement": [
+            "warn",
+            "static public field"
+          ],
+          "react/require-default-props": 0
+        }
+      }
     ]
   },
   "eslintIgnore": [
@@ -41,5 +151,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "husky": "^4.3.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn lint"
+    }
   }
 }
