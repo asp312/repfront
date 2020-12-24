@@ -7,22 +7,6 @@ import {
 import './style.css';
 
 
-import { mockRepositoryData } from './mock/repositories';
-import { SearchBlock, Title, RepositoryList } from './components';
-
-
-const MainPage = () => (
-  <>
-      <Title />    
-      <SearchBlock />   
-      <RepositoryList mockRepositoryData={mockRepositoryData} />
-  </>
-);
-
-const RepositoryPage = () => (
-  <h1>Repository page</h1>
-);
-
 function App() {
   return (
     <BrowserRouter>

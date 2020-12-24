@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { SearchPanel } from './Search';
-import { SearchButton } from './Button';
+import { SearchPanel } from '.';
+import { SearchButton } from '../Button';
 
 export const SearchBlock = () => {
     return (

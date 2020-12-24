@@ -4,18 +4,20 @@ import { Repository } from './Repository';
 
 export const RepositoryList = ({mockRepositoryData}) => {
     return (
-        <ul>
-            {
-                mockRepositoryData.map((item, index) => {
-                    return (
-                        <Repository 
-                            key={index} 
-                            repositoryInfo={item} 
-                        />
-                    )
-                })
-            }
-        </ul>
+        <div className = "list-container">
+            <ul>
+                {
+                    mockRepositoryData.map((item, index) => {
+                        return (
+                            <Repository 
+                             key={index} 
+                                repositoryInfo={item} 
+                            />
+                     )
+                    })
+                }
+            </ul>
+        </div>
     );
 };
 
