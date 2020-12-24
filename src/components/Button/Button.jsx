@@ -3,10 +3,8 @@ import React from 'react';
 
 export const Button = ({
     buttonText,
-    onClick
-}) => {
-
-    return (
+    onClick,
+}) =>
+    (
         <button onClick={onClick}>{buttonText}</button>
-    )
-}
+    );
