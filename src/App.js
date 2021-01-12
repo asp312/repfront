@@ -20,9 +20,14 @@ function App() {
       <>
         <Title title={'First app'} />
         <List itemList={list} />
-        <Button text={'Click me'} onClick={() => addItemToList('Element 999')} />
+        <Button text={'Add element'} onClick={() => addItemToList('Element 999')} />
       </>
   );
 }
 
 export default App;
+
+/*
+    TODO:
+        1. Добавить вторую кнопку Remove button, при клике на которую должен удаляться последний эелемент из списка
+ */
