@@ -1,12 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
-export const Button = ({
-    buttonText,
-    onClick
-}) => {
+export const Button = ({ text, onClick }) => (
+    <button onClick={onClick}>{text}</button>
+)
 
-    return (
-        <button onClick={onClick}>{buttonText}</button>
-    )
+Button.propTypes = {
+    text: PropTypes.string,
+    onClick: PropTypes.func
 }
