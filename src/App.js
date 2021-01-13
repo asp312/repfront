@@ -1,30 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import './style.css';
-import { Button, List, Title } from './components';
+import { Button, List, Title, Input } from './components';
 
 
 function App() {
-  const itemList = ['Element 1', 'Element 2', 'Element 3', 'Element 4'];
+  const [list, setList] = useState([]);
+  const [itemToAdd, setItemToAdd] = useState('');
 
-  // ['', '', ...]
-  const [list, setList] = useState(itemList);
+    /**
+     * '' -> true
+     * 'str' -> false
+     */
+  const isAddButtonDisabled = !itemToAdd;
 
-  console.log(list);
+  const isListEmpty = list.length === 0;
 
-  const addItemToList = (item) => {
-      setList([...list, item]);
-  };
-  const removeItemFromList = () => {
+  const addItemToList = useCallback((item) => {
+      setList([...list, {}]);
+      setItemToAdd('');
+  }, []);
+
+  const removeItemFromList = useCallback(() => {
       setList([...list.slice(0, -1)]);
-};
+  }, []);
+
+  const prepareItemToAdd = useCallback((valueToAdd) => {
+      setItemToAdd(valueToAdd);
+  }, []);
 
   return (
       <>
         <Title title={'First app'} />
         <List itemList={list} />
-        <Button text={'Add element'} onClick={() => addItemToList('Element 999')} />
+        <Input value={itemToAdd} onChange={prepareItemToAdd} />
+        <Button
+            text={'Add element'}
+            onClick={() => addItemToList(itemToAdd)}
+            disabled={isAddButtonDisabled}
+        />
         <Button text={'Remove element'} onClick={() => removeItemFromList()} />
+        {
+            !isListEmpty && (
+                <Table />
+            )
+        }
       </>
   );
 }
@@ -33,5 +53,10 @@ export default App;
 
 /*
     TODO:
-        1. Добавить вторую кнопку Remove button, при клике на которую должен удаляться последний эелемент из списка
+        1. Добавить еще один инпут для ввода фамилии
+        1.1. В компоненте Input добавить пропс placeholder (не забыть про типизацию)
+        2. Убрать кнопку удаления
+        3. Создать компонент таблицы, которая принимает на вход массив обьектами [{ name: 'name', surname: 'surname'}, ...]
+        4. При нажатии на кнопку Add добавлять в общий список нового пользователя -> рендерить новую строку в таблице
+        5. Если список пользователей пуст, то таблицу не выводить
  */
