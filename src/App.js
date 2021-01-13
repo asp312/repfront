@@ -16,7 +16,7 @@ function App() {
       setList([...list, item]);
   };
   const removeItemFromList = () => {
-    setList(...list.splice(-1));
+      setList([...list.slice(0, -1)]);
 };
 
   return (
