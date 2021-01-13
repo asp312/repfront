@@ -15,12 +15,16 @@ function App() {
   const addItemToList = (item) => {
       setList([...list, item]);
   };
+  const removeItemFromList = () => {
+    setList(...list.splice(-1));
+};
 
   return (
       <>
         <Title title={'First app'} />
         <List itemList={list} />
         <Button text={'Add element'} onClick={() => addItemToList('Element 999')} />
+        <Button text={'Remove element'} onClick={() => removeItemFromList()} />
       </>
   );
 }
