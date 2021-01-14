@@ -4,19 +4,27 @@ import PropTypes from 'prop-types';
 export const Table = ({arr}) => {
     return (
         <table>
-            { 
-            arr.map((item) => ( 
-            <tr>
-                <td>{item.name}</td>
-                <td>{item.surname}</td>
-            </tr>
-            ))
-            } 
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    arr.map((item) => (
+                        <tr key={item.name}>
+                            <td>{item.name}</td>
+                            <td>{item.surname}</td>
+                        </tr>
+                    ))
+                }
+            </tbody>
         </table>
     )
 }
 
-Input.propTypes = {
+Table.propTypes = {
     arr: PropTypes.array,
     item: PropTypes.string
 };
