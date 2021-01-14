@@ -6,48 +6,73 @@ import { Button, Title, Input, Table } from './components';
 
 function App() {
   const [list, setList] = useState([]);
-  const [nameToAdd, setNameToAdd] = useState('');
-  const [surnameToAdd, setSurnameToAdd] = useState('');
+  const [userToAdd, setUserToAdd] = useState({
+      name: '',
+      surname: ''
+  });
 
-  function createObj(myName, surname) {
-      this.name = myName;
-      this.surname = surname;
-  };
+  console.log(userToAdd);
 
-  const obj =  new createObj(nameToAdd, surnameToAdd);
+  // const [nameToAdd, setNameToAdd] = useState('');
+  // const [surnameToAdd, setSurnameToAdd] = useState('');
 
-  const isAddButtonDisabled = !nameToAdd && !surnameToAdd;
+  // function createObj(myName, surname) {
+  //     this.name = myName;
+  //     this.surname = surname;
+  // };
+  //
+  // const obj =  new createObj(nameToAdd, surnameToAdd);
+
+  const isAddButtonDisabled = !userToAdd.name && !userToAdd.surname;
 
   const isListEmpty = list.length === 0;
 
   const addItemToList = useCallback(() => {
-      const userToAdd = {
-          name: nameToAdd,
-          surname: surnameToAdd
-      };
-
       setList([...list, userToAdd]);
-      setNameToAdd('');
-      setSurnameToAdd('');
-  }, [nameToAdd, surnameToAdd]);
+      setUserToAdd({
+          name: '',
+          surname: ''
+      });
+  }, [userToAdd]);
 
   const removeItemFromList = useCallback(() => {
       setList([...list.slice(0, -1)]);
   }, []);
 
-  const prepareNameToAdd = useCallback((valueToAdd) => {
-      setNameToAdd(valueToAdd);
-  }, []);
+  // const prepareNameToAdd = useCallback((valueToAdd) => {
+  //     setNameToAdd(valueToAdd);
+  // }, []);
+  //
+  //   const prepareSurnameToAdd = useCallback((valueToAdd) => {
+  //       setSurnameToAdd(valueToAdd);
+  //   }, []);
+  //
 
-    const prepareSurnameToAdd = useCallback((valueToAdd) => {
-        setSurnameToAdd(valueToAdd);
-    }, []);
+    /**
+     * value -> { name: 'asdasdasdasdasdada' } || { surname: 'adfasdfadsf' }
+     */
+  const prepareUserToAdd = useCallback((value) => {
+      setUserToAdd(prevState => ({
+          ...prevState,
+          ...value
+      }))
+  }, [userToAdd]);
 
   return (
       <>
         <Title title={'First app'} />
-        <Input value={nameToAdd} onChange={prepareNameToAdd} placeholder={'Name'}/>
-        <Input value={surnameToAdd} onChange={prepareSurnameToAdd} placeholder={'Surname'}/>
+        <Input
+            value={userToAdd.name}
+            onChange={prepareUserToAdd}
+            placeholder={'Name'}
+            name={'name'}
+        />
+        <Input
+            value={userToAdd.surname}
+            onChange={prepareUserToAdd}
+            placeholder={'Surname'}
+            name={'surname'}
+        />
         <Button
             text={'Add element'}
             onClick={() => addItemToList()}

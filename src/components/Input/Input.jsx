@@ -2,19 +2,30 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 
-export const Input = ({ onChange, value, placeholder }) => {
+export const Input = ({ onChange, value, placeholder, name }) => {
     const handleInputChange = useCallback((e) => {
-        onChange(e.target.value);
+        const inputData = {
+            [e.target.name]: e.target.value
+        };
+
+        onChange(inputData);
     }, []);
 
     return (
-        <input type="text" value={value} onChange={handleInputChange} placeholder={placeholder}/>
+        <input
+            type="text"
+            value={value}
+            name={name}
+            onChange={handleInputChange}
+            placeholder={placeholder}
+        />
     )
 };
 
 Input.propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.string,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    name: PropTypes.string,
 };
 
