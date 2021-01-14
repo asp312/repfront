@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 
-import './style.css';
 import { Button, Title, Input, Table } from './components';
+import './style.css';
 
 
 function App() {
@@ -10,8 +10,6 @@ function App() {
       name: '',
       surname: ''
   });
-
-  console.log(userToAdd);
 
   // const [nameToAdd, setNameToAdd] = useState('');
   // const [surnameToAdd, setSurnameToAdd] = useState('');
@@ -23,7 +21,7 @@ function App() {
   //
   // const obj =  new createObj(nameToAdd, surnameToAdd);
 
-  const isAddButtonDisabled = !userToAdd.name && !userToAdd.surname;
+  const isAddButtonDisabled = !userToAdd.name || !userToAdd.surname;
 
   const isListEmpty = list.length === 0;
 
@@ -31,7 +29,7 @@ function App() {
       setList([...list, userToAdd]);
       setUserToAdd({
           name: '',
-          surname: ''
+          surname: '',
       });
   }, [userToAdd]);
 
@@ -91,10 +89,8 @@ export default App;
 
 /*
     TODO:
-        1. Добавить еще один инпут для ввода фамилии
-        1.1. В компоненте Input добавить пропс placeholder (не забыть про типизацию)
-        2. Убрать кнопку удаления
-        3. Создать компонент таблицы, которая принимает на вход массив обьектами [{ name: 'name', surname: 'surname'}, ...]
-        4. При нажатии на кнопку Add добавлять в общий список нового пользователя -> рендерить новую строку в таблице
-        5. Если список пользователей пуст, то таблицу не выводить
+        1. Добавить два инпута: для возраста и пола
+        1.1. Кнопка добавления должна быть активна только когда все поля заполнены
+        2. Заменить все компоненты на компоненты из material-ui
+        3. Выровнять содержимое по центру
  */

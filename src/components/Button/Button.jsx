@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ExternalButton from '@material-ui/core/Button';
 
 
 export const Button = ({ text, onClick, disabled }) => (
-    <button onClick={onClick} disabled={disabled}>{text}</button>
+    <ExternalButton onClick={onClick} disabled={disabled}>{text}</ExternalButton>
 )
 
 Button.propTypes = {
