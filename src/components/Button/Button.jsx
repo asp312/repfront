@@ -4,7 +4,7 @@ import ExternalButton from '@material-ui/core/Button';
 
 
 export const Button = ({ text, onClick, disabled }) => (
-    <ExternalButton onClick={onClick} disabled={disabled}>{text}</ExternalButton>
+    <ExternalButton onClick={onClick} disabled={disabled} color="secondary" >{text}</ExternalButton>
 )
 
 Button.propTypes = {

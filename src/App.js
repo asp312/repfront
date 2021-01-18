@@ -1,5 +1,8 @@
 import React, { useState, useCallback } from 'react';
-
+import Paper from '@material-ui/core/Paper';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 import { Button, Title, Input, Table } from './components';
 import './style.css';
 
@@ -21,7 +24,7 @@ function App() {
   //
   // const obj =  new createObj(nameToAdd, surnameToAdd);
 
-  const isAddButtonDisabled = !userToAdd.name || !userToAdd.surname;
+  const isAddButtonDisabled = !userToAdd.name || !userToAdd.surname || !userToAdd.age;
 
   const isListEmpty = list.length === 0;
 
@@ -30,6 +33,8 @@ function App() {
       setUserToAdd({
           name: '',
           surname: '',
+          age: '',
+          sex: '',
       });
   }, [userToAdd]);
 
@@ -58,12 +63,16 @@ function App() {
 
   return (
       <>
-        <Title title={'First app'} />
+        <div className = "item3">
+        <Paper elevation={3} className = "item4">
+        <Title title={'First app'}/>
+        <div className = "item1">
         <Input
             value={userToAdd.name}
             onChange={prepareUserToAdd}
-            placeholder={'Name'}
+            placeholder={'piter'}
             name={'name'}
+            
         />
         <Input
             value={userToAdd.surname}
@@ -71,16 +80,34 @@ function App() {
             placeholder={'Surname'}
             name={'surname'}
         />
+         <Input
+            value={userToAdd.age}
+            onChange={prepareUserToAdd}
+            placeholder={'Age'}
+            name={'age'}
+        />
+        <div className = "item10">
+        <InputLabel id="label" >Sex</InputLabel>
+            <Select labelId="label" id="select" value="20" onChange={prepareUserToAdd}>
+                <MenuItem value="M">Men</MenuItem>
+                <MenuItem value="W">Women</MenuItem>
+            </Select>
+            </div>
+        </div>
+        <div className = "button">
         <Button
             text={'Add element'}
             onClick={() => addItemToList()}
             disabled={isAddButtonDisabled}
         />
+         </div>
         {
             !isListEmpty && (
-                <Table arr={list}/>
+                <Table arr={list} />
             )
         }
+        </Paper>
+        </div>
       </>
   );
 }

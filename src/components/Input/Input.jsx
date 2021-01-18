@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import ExternaInput from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 
 
 export const Input = ({ onChange, value, placeholder, name }) => {
@@ -12,12 +14,15 @@ export const Input = ({ onChange, value, placeholder, name }) => {
     }, []);
 
     return (
-        <input
+        
+        <ExternaInput
+            className = "item2"
             type="text"
             value={value}
             name={name}
             onChange={handleInputChange}
             placeholder={placeholder}
+            
         />
     )
 };

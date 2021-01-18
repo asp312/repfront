@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 export const Title = ({ title = 'Second app' }) => (
-    <h1>{title}</h1>
+    <h1  className = "firstTitle">{title}</h1>
 );
 
 Title.propTypes = {
