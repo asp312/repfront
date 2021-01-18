@@ -25,6 +25,16 @@ const Wrapper = styled(Box)({
 function App() {
   const classes = useStyles();
   const [list, setList] = useState([]);
+  const listFromLocalStorage = JSON.parse(localStorage.getItem('list'));
+
+  if (listFromLocalStorage) {
+      setList(listFromLocalStorage);
+  }
+    /**
+     *  1. Проверить есть ли list в localStorage
+     *  2. Если есть, то положить его в состояние через setList
+     *  3. При добавлении нового пользователя перезаписать list в localStorage
+     */
   const [userToAdd, setUserToAdd] = useState({
       name: '',
       surname: '',
@@ -110,3 +120,16 @@ function App() {
 }
 
 export default App;
+
+/*
+    TODO:
+        1. Заменить Input на TextArea
+        2. Сделать Select и TextArea одной ширины
+        3. Сделать кнопку более широкой, чтобы текст не переносился
+        4. Стилизовать компоненты через makeStyles() или styled(). Заменить названия классов на более читаемые
+        5. Сверстать вторую страницу
+        6. Добавить в валидацию кнопки проверку на Select (что значение выбрано)
+        7. Сделать инпут Age числовым (добавить пропс type к компоненту Input и прокинуть его в ExternalInput)
+        8* При добавлении пользователя класть list в localStorage,
+            при наличии поля list в localStorage считывать его в компоненте. Не забыть про JSON.parse(), JSON.stringify()
+ */
