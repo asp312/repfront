@@ -1,11 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, styled } from '@material-ui/core';
+import { styled } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Box from '@material-ui/core/Box';
-import './style.css';
 
 const GridWrapper = styled(Box)({
     display: 'grid',
@@ -21,10 +20,12 @@ const Wrapper = styled(Box)({
     margin: '0 auto',
     background: "url('pic/4_01.jpg')"
 });
+
 const TypWrapper = styled(Box)({
     marginLeft: '40%',
 });
-function Bpp() {
+
+function UserInfo() {
     return (
         <Paper elevation={3} className = "secondPaper">
             <TypWrapper>
@@ -47,4 +48,4 @@ function Bpp() {
 }
 
 
-export default Bpp;
+export default UserInfo;

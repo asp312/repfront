@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Bpp from './Bpp';
+import {BrowserRouter} from 'react-router-dom';
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-    <Bpp />
-  </React.StrictMode>,
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
   document.getElementById('root')
 );
