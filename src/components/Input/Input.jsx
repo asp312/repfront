@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import ExternaInput from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import cn from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export const Input = ({ onChange, value, placeholder, name, label, className, type}) => {
+    const classes = useStyles();
     const handleInputChange = useCallback((e) => {
         const inputData = {
             [e.target.name]: e.target.value
@@ -24,9 +25,9 @@ export const Input = ({ onChange, value, placeholder, name, label, className, ty
     }, []);
 
     return (
-        
+
         <TextField
-            className = {className}
+            className={cn(className, classes.root)}
             type="text"
             value={value}
             name={name}

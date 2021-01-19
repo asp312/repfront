@@ -19,6 +19,7 @@ const GridWrapper = styled(Box)({
 const Wrapper = styled(Box)({
     width: '400px',
     margin: '0 auto',
+    background: "url('pic/4_01.jpg')"
 });
 const TypWrapper = styled(Box)({
     marginLeft: '40%',

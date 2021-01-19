@@ -128,7 +128,14 @@ function App() {
                 <SelectWrapper>
                 <FormControl variant="outlined" className={classes.formControl}>
                     <InputLabel id="demo-simple-select-outlined-label" >Sex</InputLabel>
-                    <Select labelId="demo-simple-select-outlined-label" id="demo-simple-select-outlined" value={userToAdd.sex} name={'sex'} onChange={handleSelectChange}>
+                    <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={userToAdd.sex}
+                        name={'sex'}
+                        onChange={handleSelectChange}
+                        label={'Sex'}
+                    >
                         <MenuItem value="Men">Men</MenuItem>
                         <MenuItem value="Women">Women</MenuItem>
                         <MenuItem value="Robot">Robot</MenuItem>
