@@ -4,6 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Link } from 'react-router-dom';
 
 
 export const Table = ({arr}) => {
@@ -11,6 +12,7 @@ export const Table = ({arr}) => {
         <table className = "table">
             <TableHead>
                 <TableRow>
+                    <TableCell align = {'center'}>ID</TableCell>
                     <TableCell align = {'center'}>Name</TableCell>
                     <TableCell align = {'center'}>Surname</TableCell>
                     <TableCell align = {'center'}>Age</TableCell>
@@ -21,6 +23,9 @@ export const Table = ({arr}) => {
                 {
                     arr.map((item) => (
                         <TableRow key={item.name}>
+                            <TableCell align = {'center'}>
+                                <Link to={`/user/${item.id}`}>{item.id}</Link>
+                            </TableCell>
                             <TableCell align = {'center'}>{item.name}</TableCell>
                             <TableCell align = {'center'}>{item.surname}</TableCell>
                             <TableCell align = {'center'}>{item.age}</TableCell>

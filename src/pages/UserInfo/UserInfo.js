@@ -5,6 +5,8 @@ import { styled } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Box from '@material-ui/core/Box';
+import { useParams } from 'react-router-dom';
+
 
 const GridWrapper = styled(Box)({
     display: 'grid',
@@ -26,6 +28,9 @@ const TypWrapper = styled(Box)({
 });
 
 function UserInfo() {
+    // Получаем параметры из адресной строки
+    const params = useParams();
+
     return (
         <Paper elevation={3} className = "secondPaper">
             <TypWrapper>

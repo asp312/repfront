@@ -65,7 +65,10 @@ const UserTable = () => {
     const isListEmpty = list.length === 0;
 
     const addItemToList = useCallback(() => {
-        setList([...list, userToAdd]);
+        setList([...list, {
+            ...userToAdd,
+            id: Math.floor(Math.random()*10)
+        }]);
         setUserToAdd({
             name: '',
             surname: '',
