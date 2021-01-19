@@ -6,19 +6,45 @@ import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
 import { Button, Title, Input, Table } from './components';
 import { makeStyles, styled } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
 import './style.css';
 
+const useStyles = makeStyles((theme) => ({
+    formControl: {
+      marginLeft: '-20px',
+      width: 520
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+  }));
 
-const useStyles = makeStyles({
-    item3: {
-        width: '1100px',
-        margin: '0 auto',
-    }
-});
+//const useStyles = makeStyles({
+    //item3: {
+       // width: '1100px',
+       // margin: '0 auto',
+   // }
+//});
 
 const Wrapper = styled(Box)({
     width: '1100px',
     margin: '0 auto',
+});
+const ButtonWrapper = styled(Box)({
+    width: '300px',
+    margin: '30px 43.5%',
+});
+const SelectWrapper = styled(Box)({
+        marginLeft: '20px'
+});
+
+const GridWrapper = styled(Box)({
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    columnGap: '20px',
+    rowGap: '20px',
+    width: '1000px',
+    marginLeft: '60px'
 });
 
 
@@ -42,7 +68,7 @@ function App() {
       sex: '',
   });
 
-  const isAddButtonDisabled = !userToAdd.name || !userToAdd.surname || !userToAdd.age;
+  const isAddButtonDisabled = !userToAdd.name || !userToAdd.surname || !userToAdd.age || !userToAdd.sex;
 
   const isListEmpty = list.length === 0;
 
@@ -74,41 +100,49 @@ function App() {
         <Wrapper>
             <Paper elevation={3} className = "item4">
             <Title title={'First app'}/>
-            <div className = "item1">
+            <GridWrapper>
                 <Input
                     value={userToAdd.name}
                     onChange={prepareUserToAdd}
-                    placeholder={'piter'}
+                    placeholder={'Пётр'}
                     name={'name'}
+                    label={'Name'}
+                    type={'text'}
                 />
                 <Input
                     value={userToAdd.surname}
                     onChange={prepareUserToAdd}
-                    placeholder={'Surname'}
+                    placeholder={'Петров'}
                     name={'surname'}
+                    label={'Surname'}
+                    type={'text'}
                 />
                  <Input
                     value={userToAdd.age}
                     onChange={prepareUserToAdd}
-                    placeholder={'Age'}
+                    placeholder={'1'}
                     name={'age'}
+                    label={'Age'}
+                    type={'number'}
                 />
-                <div className = "item10">
-                    <InputLabel id="label" >Sex</InputLabel>
-                    <Select labelId="label" id="select" value={userToAdd.sex} name={'sex'} onChange={handleSelectChange}>
+                <SelectWrapper>
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel id="demo-simple-select-outlined-label" >Sex</InputLabel>
+                    <Select labelId="demo-simple-select-outlined-label" id="demo-simple-select-outlined" value={userToAdd.sex} name={'sex'} onChange={handleSelectChange}>
                         <MenuItem value="Men">Men</MenuItem>
                         <MenuItem value="Women">Women</MenuItem>
                         <MenuItem value="Robot">Robot</MenuItem>
                     </Select>
-                </div>
-            </div>
-            <div className = "button">
+                </FormControl>
+                </SelectWrapper>
+            </GridWrapper>
+            <ButtonWrapper>
                 <Button
                     text={'Add element'}
                     onClick={() => addItemToList()}
                     disabled={isAddButtonDisabled}
                 />
-             </div>
+             </ButtonWrapper>
             {
                 !isListEmpty && (
                     <Table arr={list} />

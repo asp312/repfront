@@ -73,27 +73,6 @@ body{
   width: 100px;
   height: 100px;
 }
-.MuiInput-marginDense{
-  margin: dense;
-
-}
-.item1{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 1000px;
-  margin-left: 60px;
-}
-.item2{
-  border: 1px solid grey;
-  margin: 10px;
-  width: 450px;
-  height: 35px;
-  padding-left: 20px;
-}
-.item3{
-  width: 1100px;
-  margin: 0 auto;
-}
 .firstTitle{
   margin-left: 45%;
 }
@@ -103,16 +82,15 @@ body{
 .item5{
   margin-left: 50px;
 }
-.item10{
-  margin-left: 20px;
-}
+
 .table{
   width: 500px;
   margin-left: 27%;
 
 }
-.button{
-  margin: 30px 45%;
-  width: auto;
+.secondPaper{
+  min-height: 750px;
+  width: 1100px;
+  margin: 0 auto;
 }
 
