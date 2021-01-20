@@ -9,8 +9,8 @@ import UserInfo from './pages/UserInfo/UserInfo';
 function App() {
     return (
         <Switch>
-            <Route exact path="/" component={UserTable} />
-            <Route path="/user/:id" component={UserInfo} />
+            <Route exact path="/" component={UserTable} render={(props) => ({...props})}/>
+            <Route path="/user/:id" component={UserInfo} render={(props) => ({...props})}/>
         </Switch>
     )
 }

@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import { useParams } from 'react-router-dom';
 
 
+
 const GridWrapper = styled(Box)({
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
@@ -30,7 +31,7 @@ const TypWrapper = styled(Box)({
 function UserInfo() {
     // Получаем параметры из адресной строки
     const params = useParams();
-
+        console.log(params);
     return (
         <Paper elevation={3} className = "secondPaper">
             <TypWrapper>
@@ -41,10 +42,10 @@ function UserInfo() {
                 <Wrapper></Wrapper>
                 <Wrapper>
                     <List>
-                        <ListItem>Имя: Пётр</ListItem>
-                        <ListItem>Фамилия: Петров</ListItem>
-                        <ListItem>Пол: Мужской</ListItem>
-                        <ListItem>Возраст: 31</ListItem>
+                        <ListItem>item.name</ListItem>
+                        <ListItem>item.surname</ListItem>
+                        <ListItem>item.sex</ListItem>
+                        <ListItem>item.age</ListItem>
                     </List>
                 </Wrapper>
             </GridWrapper>
