@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Input = ({ onChange, value, placeholder, name, label, className, type}) => {
     const classes = useStyles();
+
     const handleInputChange = useCallback((e) => {
         const inputData = {
             [e.target.name]: e.target.value
