@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Switch, Route } from 'react-router';
 import './style.css';
 
@@ -7,11 +7,11 @@ import UserInfo from './pages/UserInfo/UserInfo';
 
 
 function App() {
-
+    const [list, setList] = useState([]);
     return (
         <Switch>
-            <Route exact path="/" render={() => (<UserTable />)}/>
-            <Route path="/user/:id" render={() => (<UserInfo />)} />
+            <Route exact path="/" render={() => (<UserTable list={list} setList={setList}/>)}/>
+            <Route path="/user/:id" render={() => (<UserInfo list={list}/>)} />
         </Switch>
     )
 }

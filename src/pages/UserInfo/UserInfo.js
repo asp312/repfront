@@ -28,18 +28,16 @@ const TypWrapper = styled(Box)({
     marginLeft: '40%',
 });
 
-function UserInfo() {
+function UserInfo({list}) {
     // Получаем параметры из адресной строки
     const params = useParams();
-
-    const item = {
-        name: '',
-        surname: '',
-        sex: '',
-        age: ''
-    }
+   
+    const item =  list.find((user)=>{
+       return user.id === params.id;
+    })
 
     console.log(params);
+    console.log(list);
 
     return (
         <Paper elevation={3} className = "secondPaper">

@@ -40,9 +40,9 @@ const GridWrapper = styled(Box)({
 });
 
 
-const UserTable = () => {
+const UserTable = ({list, setList}) => {
     const classes = useStyles();
-    const [list, setList] = useState([]);
+    
     const listFromLocalStorage = JSON.parse(localStorage.getItem('list'));
 
     // if (listFromLocalStorage) {
