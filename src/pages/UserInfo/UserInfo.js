@@ -21,7 +21,11 @@ const GridWrapper = styled(Box)({
 const Wrapper = styled(Box)({
     width: '400px',
     margin: '0 auto',
-    background: "url('pic/4_01.jpg')"
+
+    '&:first-child': {
+        background: "url('/images/4_01.jpg') center no-repeat",
+        backgroundSize: 'contain',
+    }
 });
 
 const TypWrapper = styled(Box)({
