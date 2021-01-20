@@ -7,10 +7,11 @@ import UserInfo from './pages/UserInfo/UserInfo';
 
 
 function App() {
+
     return (
         <Switch>
-            <Route exact path="/" component={UserTable} render={(props) => ({...props})}/>
-            <Route path="/user/:id" component={UserInfo} render={(props) => ({...props})}/>
+            <Route exact path="/" render={() => (<UserTable />)}/>
+            <Route path="/user/:id" render={() => (<UserInfo />)} />
         </Switch>
     )
 }

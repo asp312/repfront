@@ -45,9 +45,9 @@ const UserTable = () => {
     const [list, setList] = useState([]);
     const listFromLocalStorage = JSON.parse(localStorage.getItem('list'));
 
-    if (listFromLocalStorage) {
-        setList(listFromLocalStorage);
-    }
+    // if (listFromLocalStorage) {
+    //     setList(listFromLocalStorage);
+    // }
     /**
      *  1. Проверить есть ли list в localStorage
      *  2. Если есть, то положить его в состояние через setList

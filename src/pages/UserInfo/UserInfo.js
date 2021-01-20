@@ -31,7 +31,16 @@ const TypWrapper = styled(Box)({
 function UserInfo() {
     // Получаем параметры из адресной строки
     const params = useParams();
-        console.log(params);
+
+    const item = {
+        name: '',
+        surname: '',
+        sex: '',
+        age: ''
+    }
+
+    console.log(params);
+
     return (
         <Paper elevation={3} className = "secondPaper">
             <TypWrapper>
@@ -42,16 +51,16 @@ function UserInfo() {
                 <Wrapper></Wrapper>
                 <Wrapper>
                     <List>
-                        <ListItem>item.name</ListItem>
-                        <ListItem>item.surname</ListItem>
-                        <ListItem>item.sex</ListItem>
-                        <ListItem>item.age</ListItem>
+                        <ListItem>{item.name}</ListItem>
+                        <ListItem>{item.surname}</ListItem>
+                        <ListItem>{item.sex}</ListItem>
+                        <ListItem>{item.age}</ListItem>
                     </List>
                 </Wrapper>
             </GridWrapper>
         </Paper>
     )
-}
+};
 
 
 export default UserInfo;
