@@ -29,11 +29,11 @@ const TypWrapper = styled(Box)({
 });
 
 function UserInfo({list}) {
-    // Получаем параметры из адресной строки
+    // Получаем параметры из адресной строки преобразованные в строку
     const params = useParams();
-   
+
     const item =  list.find((user)=>{
-       return user.id === params.id;
+       return user.id === +params.id;
     })
 
     console.log(params);

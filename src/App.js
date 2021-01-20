@@ -8,6 +8,7 @@ import UserInfo from './pages/UserInfo/UserInfo';
 
 function App() {
     const [list, setList] = useState([]);
+
     return (
         <Switch>
             <Route exact path="/" render={() => (<UserTable list={list} setList={setList}/>)}/>
