@@ -42,17 +42,7 @@ const GridWrapper = styled(Box)({
 
 const UserTable = ({list, setList}) => {
     const classes = useStyles();
-    
-    const listFromLocalStorage = JSON.parse(localStorage.getItem('list'));
 
-    // if (listFromLocalStorage) {
-    //     setList(listFromLocalStorage);
-    // }
-    /**
-     *  1. Проверить есть ли list в localStorage
-     *  2. Если есть, то положить его в состояние через setList
-     *  3. При добавлении нового пользователя перезаписать list в localStorage
-     */
     const [userToAdd, setUserToAdd] = useState({
         name: '',
         surname: '',
@@ -67,7 +57,7 @@ const UserTable = ({list, setList}) => {
     const addItemToList = useCallback(() => {
         setList([...list, {
             ...userToAdd,
-            id: Math.floor(Math.random()*10)
+            // id: Math.floor(Math.random()*10)
         }]);
         setUserToAdd({
             name: '',
@@ -75,6 +65,16 @@ const UserTable = ({list, setList}) => {
             age: '',
             sex: '',
         });
+
+        // Создать асинхронную функцию, которая отправит POST запрос на создание сущности
+        // POST -> body: userToAdd
+
+        /**
+         * fetch('http://localhost:3001/users', {
+         *     method: 'POST',
+         *     body: JSON.stringify(userToAdd)
+         * })
+         */
     }, [userToAdd]);
 
     const prepareUserToAdd = useCallback((value) => {

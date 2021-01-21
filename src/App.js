@@ -9,14 +9,27 @@ import UserInfo from './pages/UserInfo/UserInfo';
 function App() {
     const [list, setList] = useState([]);
 
-    useEffect(() => {
-        const listFromLocalStorage = JSON.parse(localStorage.getItem('list'));
-        setList(listFromLocalStorage);
-    }, []);
+    // Получение/сохранение данных в localStorage
+    // useEffect(() => {
+    //     const listFromLocalStorage = JSON.parse(localStorage.getItem('list'));
+    //     setList(listFromLocalStorage);
+    // }, []);
+    //
+    // useEffect(() => {
+    //     localStorage.setItem('list', JSON.stringify(list));
+    // }, [list]);
 
     useEffect(() => {
-        localStorage.setItem('list', JSON.stringify(list));
-    }, [list]);
+        const fetchData = async () => {
+            await fetch('http://localhost:3001/users')
+                .then(res => res.json())
+                .then(dataInJSON => setList(dataInJSON));
+        }
+
+        fetchData();
+    }, []);
+
+    console.log(list);
 
     return (
         <Switch>
@@ -30,6 +43,8 @@ export default App;
 
 /*
     TODO:
-        1) При добавлении пользователя класть list в localStorage,
-            при наличии поля list в localStorage считывать его в компоненте. Не забыть про JSON.parse(), JSON.stringify()
+        1) Удалить колонку Surname
+        1.1) Добавить колонки username, email, address, phone, website, company
+        1.2) Добавить новые элементы списка в компонент UserInfo
+        2) Функция отправки POST запроса на добавление нового пользователя
  */
