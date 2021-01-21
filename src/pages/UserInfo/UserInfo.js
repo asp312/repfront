@@ -40,6 +40,10 @@ function UserInfo({list}) {
        return user.id === +params.id;
     });
 
+    if (!item) {
+        return <h5>Loading</h5>
+    }
+
     return (
         <Paper elevation={3} className = "secondPaper">
             <TypWrapper>

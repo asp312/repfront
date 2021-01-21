@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router';
 import './style.css';
 
@@ -8,6 +8,15 @@ import UserInfo from './pages/UserInfo/UserInfo';
 
 function App() {
     const [list, setList] = useState([]);
+
+    useEffect(() => {
+        const listFromLocalStorage = JSON.parse(localStorage.getItem('list'));
+        setList(listFromLocalStorage);
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('list', JSON.stringify(list));
+    }, [list]);
 
     return (
         <Switch>
