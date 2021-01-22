@@ -73,7 +73,7 @@ const UserTable = ({list, setList}) => {
         });
 
         fetch('http://localhost:3001/users/', {
-            methoKd: 'POST',
+            method: 'POST',
             body: JSON.stringify(userToAdd),
             // В заголовке явно указываем, что в теле запроса лежит JSON формат
             headers: {
@@ -83,9 +83,7 @@ const UserTable = ({list, setList}) => {
             .then(res => res.json())
             // После удачного запроса в теле ответа будет лежать обьект созданного пользователя
             // с новым присвоенным id -> добавляем его в наше состояние list
-            .then(dataInJSON => setList([...list, {
-                ...dataInJSON
-            }]))
+            .then(userInfo => setList([...list, userInfo]))
             // Отлавливаем ошибку
             .catch(err => console.error(err))
 

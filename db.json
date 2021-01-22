@@ -121,40 +121,16 @@
       "sex": "Men"
     },
     {
-      "name": "Andrey",
-      "username": "Opanasenko",
-      "age": 12,
+      "name": "Андрей",
+      "username": "Опанасенко",
+      "age": "121",
       "sex": "Men",
-      "email": "test@mail.ru",
+      "email": "opanasenkoaa@mail.ru",
       "address": "Москва",
-      "phone": "90001233221",
-      "website": "сайт",
-      "company": "ООО Ромашка",
+      "phone": "12333211212",
+      "website": "website",
+      "company": "ОАО Ромашка",
       "id": 11
-    },
-    {
-      "name": "Andrey",
-      "username": "Opanasenko",
-      "age": "12",
-      "sex": "Men",
-      "email": "test@mail.ru",
-      "address": "Москва",
-      "phone": "90001233221",
-      "website": "сайт",
-      "company": "ООО Ромашка",
-      "id": 12
-    },
-    {
-      "name": "Andrey",
-      "username": "aopanasenko",
-      "age": "123123",
-      "sex": "Women",
-      "email": "andrew@your-gift.ru",
-      "address": "Гоголя, 49",
-      "phone": "",
-      "website": "asasd",
-      "company": "asdasd",
-      "id": 13
     }
   ]
 }
