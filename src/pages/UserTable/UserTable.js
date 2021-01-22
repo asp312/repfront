@@ -60,10 +60,6 @@ const UserTable = ({list, setList}) => {
     const isListEmpty = list.length === 0;
 
     const addItemToList = useCallback(() => {
-        setList([...list, {
-            ...userToAdd
-        }]);
-
         setUserToAdd({
             name: '',
             username: '',
@@ -76,15 +72,22 @@ const UserTable = ({list, setList}) => {
             company: ''
         });
 
-        // Создать асинхронную функцию, которая отправит POST запрос на создание сущности
-        // POST -> body: userToAdd
-
-
-          fetch('http://localhost:3001/users/', {
-              method: 'POST',
-              body: JSON.stringify(userToAdd),
-              type: "application/json"
-          })
+        fetch('http://localhost:3001/users/', {
+            methoKd: 'POST',
+            body: JSON.stringify(userToAdd),
+            // В заголовке явно указываем, что в теле запроса лежит JSON формат
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            // После удачного запроса в теле ответа будет лежать обьект созданного пользователя
+            // с новым присвоенным id -> добавляем его в наше состояние list
+            .then(dataInJSON => setList([...list, {
+                ...dataInJSON
+            }]))
+            // Отлавливаем ошибку
+            .catch(err => console.error(err))
 
     }, [userToAdd]);
 
