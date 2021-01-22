@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { styled } from '@material-ui/core';
+import { Button } from '../../components';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Box from '@material-ui/core/Box';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 
 
@@ -35,6 +36,15 @@ const TypWrapper = styled(Box)({
 function UserInfo({list}) {
     // Получаем параметры из адресной строки преобразованные в строку
     const params = useParams();
+    const history = useHistory();
+
+
+    const handleButtonClick = useCallback(() => {
+        // Редирект на главную страницу
+
+
+        history.push('/');
+    }, []);
 
     const item = list.find((user) => {
        return user.id === +params.id;
@@ -66,6 +76,7 @@ function UserInfo({list}) {
                     </List>
                 </Wrapper>
             </GridWrapper>
+            <Button  text={'Go to homepage'} onClick={handleButtonClick}/>
         </Paper>
     )
 };

@@ -49,7 +49,7 @@ const UserTable = ({list, setList}) => {
         age: '',
         sex: '',
         email: '',
-        addres: '',
+        address: '',
         phone: '',
         website:'',
         company: ''
@@ -61,16 +61,16 @@ const UserTable = ({list, setList}) => {
 
     const addItemToList = useCallback(() => {
         setList([...list, {
-            ...userToAdd,
-            id: Math.floor(Math.random()*1000)
+            ...userToAdd
         }]);
+
         setUserToAdd({
             name: '',
             username: '',
             age: '',
             sex: '',
             email: '',
-            addres: '',
+            address: '',
             phone: '',
             website:'',
             company: ''
@@ -79,12 +79,13 @@ const UserTable = ({list, setList}) => {
         // Создать асинхронную функцию, которая отправит POST запрос на создание сущности
         // POST -> body: userToAdd
 
-            
-          fetch('http://localhost:3001/users', {
+
+          fetch('http://localhost:3001/users/', {
               method: 'POST',
-              body: JSON.stringify(userToAdd)
+              body: JSON.stringify(userToAdd),
+              type: "application/json"
           })
-         
+
     }, [userToAdd]);
 
     const prepareUserToAdd = useCallback((value) => {

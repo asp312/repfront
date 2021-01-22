@@ -14,12 +14,12 @@ export const Table = ({arr}) => {
                 <TableRow>
                     <TableCell align = {'center'}>ID</TableCell>
                     <TableCell align = {'center'}>Name</TableCell>
-                    <TableCell align = {'center'}>username</TableCell>
-                    <TableCell align = {'center'}>email</TableCell>
-                    <TableCell align = {'center'}>address</TableCell>
-                    <TableCell align = {'center'}>phone</TableCell>
-                    <TableCell align = {'center'}>website</TableCell>
-                    <TableCell align = {'center'}>company</TableCell>
+                    <TableCell align = {'center'}>Username</TableCell>
+                    <TableCell align = {'center'}>Email</TableCell>
+                    <TableCell align = {'center'}>Address</TableCell>
+                    <TableCell align = {'center'}>Phone</TableCell>
+                    <TableCell align = {'center'}>Website</TableCell>
+                    <TableCell align = {'center'}>Company</TableCell>
                     <TableCell align = {'center'}>Age</TableCell>
                     <TableCell align = {'center'}>Sex</TableCell>
                 </TableRow>
@@ -27,7 +27,7 @@ export const Table = ({arr}) => {
             <TableBody>
                 {
                     arr.map((item) => (
-                        <TableRow key={item.name}>
+                        <TableRow key={item.id}>
                             <TableCell align = {'center'}>
                                 <Link to={`/user/${item.id}`}>{item.id}</Link>
                             </TableCell>
@@ -52,3 +52,4 @@ Table.propTypes = {
     arr: PropTypes.array,
     item: PropTypes.string
 };
+

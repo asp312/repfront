@@ -9,27 +9,15 @@ import UserInfo from './pages/UserInfo/UserInfo';
 function App() {
     const [list, setList] = useState([]);
 
-    // Получение/сохранение данных в localStorage
-    // useEffect(() => {
-    //     const listFromLocalStorage = JSON.parse(localStorage.getItem('list'));
-    //     setList(listFromLocalStorage);
-    // }, []);
-    //
-    // useEffect(() => {
-    //     localStorage.setItem('list', JSON.stringify(list));
-    // }, [list]);
-
     useEffect(() => {
         const fetchData = async () => {
             await fetch('http://localhost:3001/users')
                 .then(res => res.json())
-                .then(dataInJSON => setList(dataInJSON));   
+                .then(dataInJSON => setList(dataInJSON));
         }
 
         fetchData();
     }, []);
-
-    console.log(list);
 
     return (
         <Switch>
@@ -43,8 +31,7 @@ export default App;
 
 /*
     TODO:
-        1) Удалить колонку Surname
-        1.1) Добавить колонки username, email, address, phone, website, company
-        1.2) Добавить новые элементы списка в компонент UserInfo
-        2) Функция отправки POST запроса на добавление нового пользователя
+        1) Дать пояснения к каждому элементу списка на странице UserInfo
+        2) В компоненте UserInfo добавить кнопку удаления пользователя
+        2.1) После отправки запроса на удаления нужно сделать редирект на главную страницу с помощью history.push()
  */
