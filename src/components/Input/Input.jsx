@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-//import cn from 'classnames';
+import cn from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,7 +28,7 @@ export const Input = ({ onChange, value, placeholder, name, label, className, ty
     return (
 
         <TextField
-            //className={cn(className, classes.root)}
+            className={cn(className, classes.root)}
             type="text"
             value={value}
             name={name}

@@ -14,7 +14,12 @@ export const Table = ({arr}) => {
                 <TableRow>
                     <TableCell align = {'center'}>ID</TableCell>
                     <TableCell align = {'center'}>Name</TableCell>
-                    <TableCell align = {'center'}>Surname</TableCell>
+                    <TableCell align = {'center'}>username</TableCell>
+                    <TableCell align = {'center'}>email</TableCell>
+                    <TableCell align = {'center'}>address</TableCell>
+                    <TableCell align = {'center'}>phone</TableCell>
+                    <TableCell align = {'center'}>website</TableCell>
+                    <TableCell align = {'center'}>company</TableCell>
                     <TableCell align = {'center'}>Age</TableCell>
                     <TableCell align = {'center'}>Sex</TableCell>
                 </TableRow>
@@ -27,7 +32,12 @@ export const Table = ({arr}) => {
                                 <Link to={`/user/${item.id}`}>{item.id}</Link>
                             </TableCell>
                             <TableCell align = {'center'}>{item.name}</TableCell>
-                            <TableCell align = {'center'}>{item.surname}</TableCell>
+                            <TableCell align = {'center'}>{item.username}</TableCell>
+                            <TableCell align = {'center'}>{item.email}</TableCell>
+                            <TableCell align = {'center'}>{item.address}</TableCell>
+                            <TableCell align = {'center'}>{item.phone}</TableCell>
+                            <TableCell align = {'center'}>{item.website}</TableCell>
+                            <TableCell align = {'center'}>{item.company}</TableCell>
                             <TableCell align = {'center'}>{item.age}</TableCell>
                             <TableCell align = {'center'}>{item.sex}</TableCell>
                         </TableRow>

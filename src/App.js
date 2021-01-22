@@ -23,7 +23,7 @@ function App() {
         const fetchData = async () => {
             await fetch('http://localhost:3001/users')
                 .then(res => res.json())
-                .then(dataInJSON => setList(dataInJSON));
+                .then(dataInJSON => setList(dataInJSON));   
         }
 
         fetchData();

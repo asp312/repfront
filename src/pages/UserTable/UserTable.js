@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Wrapper = styled(Box)({
-    width: '1100px',
+    width: '1120px',
     margin: '0 auto',
 });
 const ButtonWrapper = styled(Box)({
@@ -45,36 +45,46 @@ const UserTable = ({list, setList}) => {
 
     const [userToAdd, setUserToAdd] = useState({
         name: '',
-        surname: '',
+        username: '',
         age: '',
         sex: '',
+        email: '',
+        addres: '',
+        phone: '',
+        website:'',
+        company: ''
     });
 
-    const isAddButtonDisabled = !userToAdd.name || !userToAdd.surname || !userToAdd.age || !userToAdd.sex;
+    const isAddButtonDisabled = !userToAdd.name || !userToAdd.username || !userToAdd.age || !userToAdd.sex;
 
     const isListEmpty = list.length === 0;
 
     const addItemToList = useCallback(() => {
         setList([...list, {
             ...userToAdd,
-            // id: Math.floor(Math.random()*10)
+            id: Math.floor(Math.random()*1000)
         }]);
         setUserToAdd({
             name: '',
-            surname: '',
+            username: '',
             age: '',
             sex: '',
+            email: '',
+            addres: '',
+            phone: '',
+            website:'',
+            company: ''
         });
 
         // Создать асинхронную функцию, которая отправит POST запрос на создание сущности
         // POST -> body: userToAdd
 
-        /**
-         * fetch('http://localhost:3001/users', {
-         *     method: 'POST',
-         *     body: JSON.stringify(userToAdd)
-         * })
-         */
+            
+          fetch('http://localhost:3001/users', {
+              method: 'POST',
+              body: JSON.stringify(userToAdd)
+          })
+         
     }, [userToAdd]);
 
     const prepareUserToAdd = useCallback((value) => {
@@ -105,11 +115,51 @@ const UserTable = ({list, setList}) => {
                         type={'text'}
                     />
                     <Input
-                        value={userToAdd.surname}
+                        value={userToAdd.username}
                         onChange={prepareUserToAdd}
                         placeholder={'Петров'}
-                        name={'surname'}
-                        label={'Surname'}
+                        name={'username'}
+                        label={'Username'}
+                        type={'text'}
+                    />
+                    <Input
+                        value={userToAdd.email}
+                        onChange={prepareUserToAdd}
+                        placeholder={'@mail'}
+                        name={'email'}
+                        label={'Email'}
+                        type={'text'}
+                    />
+                    <Input
+                        value={userToAdd.address}
+                        onChange={prepareUserToAdd}
+                        placeholder={'Mos'}
+                        name={'address'}
+                        label={'Address'}
+                        type={'text'}
+                    />
+                    <Input
+                        value={userToAdd.phone}
+                        onChange={prepareUserToAdd}
+                        placeholder={'+7(987)6543210'}
+                        name={'phone'}
+                        label={'Phone'}
+                        type={'number'}
+                    />
+                    <Input
+                        value={userToAdd.website}
+                        onChange={prepareUserToAdd}
+                        placeholder={'http'}
+                        name={'website'}
+                        label={'Website'}
+                        type={'text'}
+                    />
+                    <Input
+                        value={userToAdd.company}
+                        onChange={prepareUserToAdd}
+                        placeholder={'OAO'}
+                        name={'company'}
+                        label={'Company'}
                         type={'text'}
                     />
                     <Input

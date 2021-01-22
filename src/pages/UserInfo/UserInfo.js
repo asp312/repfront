@@ -55,7 +55,12 @@ function UserInfo({list}) {
                 <Wrapper>
                     <List>
                         <ListItem>{item.name}</ListItem>
-                        <ListItem>{item.surname}</ListItem>
+                        <ListItem>{item.username}</ListItem>
+                        <ListItem>{item.email}</ListItem>
+                        <ListItem>{item.address}</ListItem>
+                        <ListItem>{item.phone}</ListItem>
+                        <ListItem>{item.website}</ListItem>
+                        <ListItem>{item.company}</ListItem>
                         <ListItem>{item.sex}</ListItem>
                         <ListItem>{item.age}</ListItem>
                     </List>
