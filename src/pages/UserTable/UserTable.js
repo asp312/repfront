@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Wrapper = styled(Box)({
     width: '1120px',
-    margin: '0 auto',
+    margin: '30px auto',
 });
 const ButtonWrapper = styled(Box)({
     width: '300px',
