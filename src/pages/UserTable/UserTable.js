@@ -22,6 +22,10 @@ const Wrapper = styled(Box)({
     width: '1120px',
     margin: '0 auto',
 });
+const InputWrapper = styled(Box)({
+    width: '560px',
+    margin: '30px 42%',
+});
 const ButtonWrapper = styled(Box)({
     width: '300px',
     margin: '30px 43.5%',
@@ -107,6 +111,14 @@ const UserTable = ({list, setList}) => {
         <Wrapper>
             <Paper elevation={3} className = "item4">
                 <Title title={'First app'}/>
+                <InputWrapper>
+                    <Input
+                    placeholder={'Найти'}
+                    name={'Searching'}
+                    label={'Searching'}
+                    type={'text'}
+                    />
+                </InputWrapper>
                 <GridWrapper>
                     <Input
                         value={userToAdd.name}

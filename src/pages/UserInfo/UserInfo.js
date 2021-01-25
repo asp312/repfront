@@ -33,15 +33,18 @@ const TypWrapper = styled(Box)({
     marginLeft: '40%',
 });
 
-function UserInfo({list}) {
+function UserInfo({list}, setList) {
     // Получаем параметры из адресной строки преобразованные в строку
     const params = useParams();
     const history = useHistory();
 
 
     const handleButtonClick = useCallback(() => {
-        // Редирект на главную страницу
-
+        
+        fetch('http://localhost:3001/users/7', {
+            method: 'DELETE',
+        })
+            .then(() => setList([...list]))
 
         history.push('/');
     }, []);
@@ -64,15 +67,15 @@ function UserInfo({list}) {
                 <Wrapper></Wrapper>
                 <Wrapper>
                     <List>
-                        <ListItem>{item.name}</ListItem>
-                        <ListItem>{item.username}</ListItem>
-                        <ListItem>{item.email}</ListItem>
-                        <ListItem>{item.address}</ListItem>
-                        <ListItem>{item.phone}</ListItem>
-                        <ListItem>{item.website}</ListItem>
-                        <ListItem>{item.company}</ListItem>
-                        <ListItem>{item.sex}</ListItem>
-                        <ListItem>{item.age}</ListItem>
+                        <ListItem>Name: {item.name}</ListItem>
+                        <ListItem>Userame: {item.username}</ListItem>
+                        <ListItem>EMAIL: {item.email}</ListItem>
+                        <ListItem>address: {item.address}</ListItem>
+                        <ListItem>phone: {item.phone}</ListItem>
+                        <ListItem>website: {item.website}</ListItem>
+                        <ListItem>company: {item.company}</ListItem>
+                        <ListItem>sex: {item.sex}</ListItem>
+                        <ListItem>age: {item.age}</ListItem>
                     </List>
                 </Wrapper>
             </GridWrapper>
