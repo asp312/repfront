@@ -39,6 +39,8 @@ function App() {
 
     useEffect(() => {
         const fetchData = async () => {
+            // Получаем всех пользователей для определения их количества.
+            // По этому количеству будем рассчитывать количество страниц для компонента Pagination
             await fetch(`http://localhost:3001/users`)
                 .then(res => res.json())
                 .then(dataInJSON => setAmountOfUsers(dataInJSON.length));
