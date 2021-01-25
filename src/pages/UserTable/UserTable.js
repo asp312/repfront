@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Wrapper = styled(Box)({
     width: '1120px',
-    margin: '0 auto',
+    margin: '30px auto',
 });
 const InputWrapper = styled(Box)({
     width: '560px',
