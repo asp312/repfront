@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import Paper from '@material-ui/core/Paper';
-import {Button, Input, Table, Title} from '../../components';
+import {Button, Input, Table, Title, SearchInput} from '../../components';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -44,7 +44,7 @@ const GridWrapper = styled(Box)({
 });
 
 
-const UserTable = ({list, setList}) => {
+const UserTable = ({list, setList, searchString, setSearchString}) => {
     const classes = useStyles();
 
     const [userToAdd, setUserToAdd] = useState({
@@ -112,11 +112,13 @@ const UserTable = ({list, setList}) => {
             <Paper elevation={3} className = "item4">
                 <Title title={'First app'}/>
                 <InputWrapper>
-                    <Input
-                    placeholder={'Найти'}
-                    name={'Searching'}
-                    label={'Searching'}
-                    type={'text'}
+                    <SearchInput
+                        placeholder={'Найти'}
+                        name={'searching'}
+                        label={'Searching'}
+                        type={'text'}
+                        value={searchString}
+                        onChange={setSearchString}
                     />
                 </InputWrapper>
                 <GridWrapper>

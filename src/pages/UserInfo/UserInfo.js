@@ -33,21 +33,24 @@ const TypWrapper = styled(Box)({
     marginLeft: '40%',
 });
 
-function UserInfo({list}, setList) {
+function UserInfo({ list, setList }) {
     // Получаем параметры из адресной строки преобразованные в строку
     const params = useParams();
     const history = useHistory();
 
 
     const handleButtonClick = useCallback(() => {
-        
-        fetch('http://localhost:3001/users/7', {
+        fetch(`http://localhost:3001/users/${params.id}`, {
             method: 'DELETE',
         })
-            .then(() => setList([...list]))
+            .then(() => {
+                // const listWithoutRemovedUser = list.filter(user => user.id !== params.id);
+                setList(prevList => prevList.filter(user => user.id !== params.id));
+                history.push('/');
+            })
+            .catch(err => console.error(err));
 
-        history.push('/');
-    }, []);
+    }, [list, params]);
 
     const item = list.find((user) => {
        return user.id === +params.id;

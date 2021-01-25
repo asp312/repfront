@@ -8,10 +8,38 @@ import UserInfo from './pages/UserInfo/UserInfo';
 
 function App() {
     const [list, setList] = useState([]);
+    const [searchString, setSearchString] = useState('');
+    // Нужно для поиска на стороне клиента
+    // const [searchedUsers, setSearchUsers] = useState([]);
+
+    // Поиск на стороне сервера
+    useEffect(() => {
+        const shouldSearch = searchString.length >= 3;
+
+        const fetchData = async () => {
+            await fetch(`http://localhost:3001/users?q=${searchString}`)
+                .then(res => res.json())
+                .then(dataInJSON => setList(dataInJSON));
+        }
+
+        if (shouldSearch) {
+            fetchData();
+        }
+    }, [searchString]);
+
+    // Поиск на стороне сервера
+    // const isSearchStringEmpty = searchString.length === 0;
+    // const usersToShow = isSearchStringEmpty ? list : searchedUsers;
+    //
+    // useEffect(() => {
+    //     const searchedUsers = list.filter(user => user.name.includes(searchString));
+    //
+    //     setSearchUsers(searchedUsers);
+    // }, [searchString]);
 
     useEffect(() => {
         const fetchData = async () => {
-            await fetch('http://localhost:3001/users')
+            await fetch(`http://localhost:3001/users`)
                 .then(res => res.json())
                 .then(dataInJSON => setList(dataInJSON));
         }
@@ -21,8 +49,18 @@ function App() {
 
     return (
         <Switch>
-            <Route exact path="/" render={() => (<UserTable list={list} setList={setList}/>)}/>
-            <Route path="/user/:id" render={() => (<UserInfo list={list}/>)} />
+            <Route
+                exact path="/"
+                render={() => (
+                    <UserTable
+                        list={list}
+                        setList={setList}
+                        searchString={searchString}
+                        setSearchString={setSearchString}
+                    />
+                )}
+            />
+            <Route path="/user/:id" render={() => (<UserInfo list={list} setList={setList} />)} />
         </Switch>
     )
 }
