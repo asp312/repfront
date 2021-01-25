@@ -2,11 +2,13 @@ import React, {useCallback, useState} from 'react';
 import Paper from '@material-ui/core/Paper';
 import {Button, Input, Table, Title, SearchInput} from '../../components';
 import FormControl from '@material-ui/core/FormControl';
+import Pagination from '@material-ui/lab/Pagination';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import {makeStyles, styled} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
+import {DATA_PER_PAGE} from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -44,8 +46,10 @@ const GridWrapper = styled(Box)({
 });
 
 
-const UserTable = ({list, setList, searchString, setSearchString}) => {
+const UserTable = ({ list, setList, searchString, setSearchString, currentPage, setCurrentPage, amountOfUser }) => {
     const classes = useStyles();
+
+    const countOfPages = Math.round(amountOfUser / DATA_PER_PAGE);
 
     const [userToAdd, setUserToAdd] = useState({
         name: '',
@@ -106,6 +110,10 @@ const UserTable = ({list, setList, searchString, setSearchString}) => {
             [e.target.name]: e.target.value
         }))
     }, [userToAdd]);
+
+    const handleChangePage = useCallback((e, page) => {
+        setCurrentPage(page);
+    }, []);
 
     return (
         <Wrapper>
@@ -216,6 +224,12 @@ const UserTable = ({list, setList, searchString, setSearchString}) => {
                         <Table arr={list} />
                     )
                 }
+                <Pagination
+                    count={countOfPages}
+                    onChange={handleChangePage}
+                    page={currentPage}
+                    color={'primary'}
+                />
             </Paper>
         </Wrapper>
     );
