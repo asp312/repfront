@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useParams } from 'react';
 import { Switch, Route } from 'react-router';
 import './style.css';
 
@@ -12,6 +12,7 @@ function App() {
     const [amountOfUsers, setAmountOfUsers] = useState(0);
     const [searchString, setSearchString] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    const params = useParams();
 
     // Нужно для поиска на стороне клиента
     // const [searchedUsers, setSearchUsers] = useState([]);
@@ -22,6 +23,7 @@ function App() {
             await fetch(`http://localhost:3001/users?q=${searchString}&_page=${currentPage}&_limit=${DATA_PER_PAGE}`)
                 .then(res => res.json())
                 .then(dataInJSON => setList(dataInJSON));
+                
         }
 
         fetchData();
@@ -66,10 +68,11 @@ function App() {
                         setSearchString={setSearchString}
                         currentPage={currentPage}
                         setCurrentPage={setCurrentPage}
+                        params ={params}
                     />
                 )}
             />
-            <Route path="/user/:id" render={() => (<UserInfo list={listToShow} setList={setList} />)} />
+            <Route path="/user/:id" render={() => (<UserInfo list={listToShow} setList={setList}  />)} />
         </Switch>
     )
 }

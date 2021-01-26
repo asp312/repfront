@@ -5,8 +5,14 @@ import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Link } from 'react-router-dom';
+import CreateIcon from '@material-ui/icons/Create';
+import ExternalButton from '@material-ui/core/Button';
 
 
+
+const ChangeValue = (e) => {
+    TableCell.value = { e.target.name.value };
+}
 export const Table = ({arr}) => {
     return (
         <table className = "table">
@@ -22,6 +28,7 @@ export const Table = ({arr}) => {
                     <TableCell align = {'center'}>Company</TableCell>
                     <TableCell align = {'center'}>Age</TableCell>
                     <TableCell align = {'center'}>Sex</TableCell>
+                    <TableCell align = {'center'}>Change</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -40,6 +47,7 @@ export const Table = ({arr}) => {
                             <TableCell align = {'center'}>{item.company}</TableCell>
                             <TableCell align = {'center'}>{item.age}</TableCell>
                             <TableCell align = {'center'}>{item.sex}</TableCell>
+                            <TableCell align = {'center'}><ExternalButton onClick={() => ChangeValue()}><CreateIcon /></ExternalButton></TableCell>
                         </TableRow>
                     ))
                 }

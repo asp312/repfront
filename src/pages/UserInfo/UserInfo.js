@@ -35,7 +35,7 @@ const TypWrapper = styled(Box)({
 
 function UserInfo({ list, setList }) {
     // Получаем параметры из адресной строки преобразованные в строку
-    const params = useParams();
+    
     const history = useHistory();
 
 

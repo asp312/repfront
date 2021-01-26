@@ -10,6 +10,7 @@ import {makeStyles, styled} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import {DATA_PER_PAGE} from '../../constants';
 
+
 const useStyles = makeStyles((theme) => ({
     formControl: {
         marginLeft: '-20px',
@@ -26,11 +27,14 @@ const Wrapper = styled(Box)({
 });
 const InputWrapper = styled(Box)({
     width: '560px',
-    margin: '30px 42%',
+    margin: '30px 45%',
 });
 const ButtonWrapper = styled(Box)({
-    width: '300px',
-    margin: '30px 43.5%',
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gridColumnGap: '20px',
+    width: '400px',
+    margin: '30px 35%',
 });
 const SelectWrapper = styled(Box)({
     marginLeft: '20px'
@@ -66,6 +70,7 @@ const UserTable = ({ list, setList, searchString, setSearchString, currentPage, 
     const isAddButtonDisabled = !userToAdd.name || !userToAdd.username || !userToAdd.age || !userToAdd.sex;
 
     const isListEmpty = list.length === 0;
+    const userEnough = list.length <= 10;
 
     const addItemToList = useCallback(() => {
         setUserToAdd({
@@ -114,6 +119,20 @@ const UserTable = ({ list, setList, searchString, setSearchString, currentPage, 
     const handleChangePage = useCallback((e, page) => {
         setCurrentPage(page);
     }, []);
+
+    const changeItemInList = useCallback(() => {
+        fetch('http://localhost:3001/users/', {
+            method: 'PUT',
+            body: JSON.stringify(list),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(() => {
+            setList(prevList => prevList.filter(user => user.id !== params.id));
+        })
+    }, [])
 
     return (
         <Wrapper>
@@ -218,18 +237,28 @@ const UserTable = ({ list, setList, searchString, setSearchString, currentPage, 
                         onClick={() => addItemToList()}
                         disabled={isAddButtonDisabled}
                     />
+                    <Button
+                        text={'Change Element'}
+                        onClick={() => changeItemInList()}
+                        disabled={isAddButtonDisabled}
+                    />
                 </ButtonWrapper>
                 {
                     !isListEmpty && (
                         <Table arr={list} />
                     )
                 }
-                <Pagination
+                {
+                    !userEnough && (
+                        <Pagination
                     count={countOfPages}
                     onChange={handleChangePage}
                     page={currentPage}
                     color={'primary'}
-                />
+                    />
+                    )
+                    
+                } 
             </Paper>
         </Wrapper>
     );
