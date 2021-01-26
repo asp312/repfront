@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, useLocation } from 'react-router';
 import './style.css';
 
 import UserTable from './pages/UserTable/UserTable';
@@ -12,6 +12,7 @@ function App() {
     const [amountOfUsers, setAmountOfUsers] = useState(0);
     const [searchString, setSearchString] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    const location = useLocation();
 
     // Нужно для поиска на стороне клиента
     // const [searchedUsers, setSearchUsers] = useState([]);
@@ -51,7 +52,7 @@ function App() {
         }
 
         fetchData();
-    }, []);
+    }, [location.pathname]);
 
     return (
         <Switch>
@@ -69,7 +70,15 @@ function App() {
                     />
                 )}
             />
-            <Route path="/user/:id" render={() => (<UserInfo list={listToShow} setList={setList} />)} />
+            <Route
+                path="/user/:id"
+                render={() => (
+                    <UserInfo
+                        list={listToShow}
+                        setList={setList}
+                    />
+                )}
+            />
         </Switch>
     )
 }
