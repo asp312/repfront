@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {makeStyles, styled} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import {DATA_PER_PAGE} from '../../constants';
+import {useParams} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -121,18 +122,31 @@ const UserTable = ({ list, setList, searchString, setSearchString, currentPage, 
     }, []);
 
     const changeItemInList = useCallback(() => {
-        fetch('http://localhost:3001/users/', {
+        fetch(`http://localhost:3001/users/${userToAdd.id}`, {
             method: 'PUT',
-            body: JSON.stringify(list),
+            body: JSON.stringify(userToAdd),
             headers: {
                 'Content-Type': 'application/json'
             },
         })
-        .then(res => res.json())
         .then(() => {
-            setList(prevList => prevList.filter(user => user.id !== params.id));
+            const filteredUserList = list.filter(user => user.id !== userToAdd.id);
+
+            setList([...filteredUserList, userToAdd]);
+
+            setUserToAdd({
+                name: '',
+                username: '',
+                age: '',
+                sex: '',
+                email: '',
+                address: '',
+                phone: '',
+                website:'',
+                company: ''
+            });
         })
-    }, [])
+    }, [userToAdd]);
 
     return (
         <Wrapper>
@@ -245,7 +259,7 @@ const UserTable = ({ list, setList, searchString, setSearchString, currentPage, 
                 </ButtonWrapper>
                 {
                     !isListEmpty && (
-                        <Table arr={list} />
+                        <Table arr={list} changeItem={setUserToAdd} />
                     )
                 }
                 {
@@ -257,8 +271,8 @@ const UserTable = ({ list, setList, searchString, setSearchString, currentPage, 
                     color={'primary'}
                     />
                     )
-                    
-                } 
+
+                }
             </Paper>
         </Wrapper>
     );

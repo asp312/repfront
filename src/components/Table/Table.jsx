@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,11 +9,12 @@ import CreateIcon from '@material-ui/icons/Create';
 import ExternalButton from '@material-ui/core/Button';
 
 
+export const Table = ({ arr, changeItem }) => {
+    const handleChangeItem = useCallback((item) =>  () =>{
+        changeItem(item);
+    }, []);
 
-const ChangeValue = (e) => {
-    TableCell.value = { e.target.name.value };
-}
-export const Table = ({arr}) => {
+
     return (
         <table className = "table">
             <TableHead>
@@ -47,7 +48,11 @@ export const Table = ({arr}) => {
                             <TableCell align = {'center'}>{item.company}</TableCell>
                             <TableCell align = {'center'}>{item.age}</TableCell>
                             <TableCell align = {'center'}>{item.sex}</TableCell>
-                            <TableCell align = {'center'}><ExternalButton onClick={() => ChangeValue()}><CreateIcon /></ExternalButton></TableCell>
+                            <TableCell align = {'center'}>
+                                <ExternalButton onClick={handleChangeItem(item)}>
+                                    <CreateIcon />
+                                </ExternalButton>
+                            </TableCell>
                         </TableRow>
                     ))
                 }

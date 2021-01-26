@@ -2,7 +2,7 @@
   "users": [
     {
       "name": "Andrey",
-      "username": "aopanasenko",
+      "username": "New username",
       "age": "123123",
       "sex": "Women",
       "email": "asdfa",
@@ -16,7 +16,7 @@
       "name": "Andrey",
       "username": "aopanasenko",
       "age": "123123",
-      "sex": "Women",
+      "sex": "Men",
       "email": "asdfa",
       "address": "Гоголя, 49",
       "phone": "",
