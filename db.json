@@ -10,79 +10,19 @@
       "phone": "",
       "website": "aasd",
       "company": "asd",
-      "id": 1
-    },
-    {
-      "name": "Andrey",
-      "username": "aopanasenko",
-      "age": "123123",
-      "sex": "Women",
-      "email": "asdfa",
-      "address": "Гоголя, 49",
-      "phone": "",
-      "website": "aasd",
-      "company": "asd",
-      "id": 2
-    },
-    {
-      "name": "Andrey",
-      "username": "aopanasenko",
-      "age": "123123",
-      "sex": "Women",
-      "email": "asdfa",
-      "address": "Гоголя, 49",
-      "phone": "",
-      "website": "aasd",
-      "company": "asd",
-      "id": 221
-    },
-    {
-      "name": "Andrey",
-      "username": "aopanasenko",
-      "age": "123123",
-      "sex": "Women",
-      "email": "asdfa",
-      "address": "Гоголя, 49",
-      "phone": "",
-      "website": "aasd",
-      "company": "asd",
-      "id": 223
-    },
-    {
-      "name": "Andrey",
-      "username": "aopanasenko",
-      "age": "123123",
-      "sex": "Women",
-      "email": "asdfa",
-      "address": "Гоголя, 49",
-      "phone": "",
-      "website": "aasd",
-      "company": "asd",
-      "id": 212
-    },
-    {
-      "name": "Andrey",
-      "username": "aopanasenko",
-      "age": "123123",
-      "sex": "Women",
-      "email": "asdfa",
-      "address": "Гоголя, 49",
-      "phone": "",
-      "website": "aasd",
-      "company": "asd",
-      "id": 243
-    },
-    {
-      "name": "Andrey",
-      "username": "aopanasenko",
-      "age": "123123",
-      "sex": "Women",
-      "email": "asdfa",
-      "address": "Гоголя, 49",
-      "phone": "",
-      "website": "aasd",
-      "company": "asd",
       "id": 25
+    },
+    {
+      "name": "Andrey",
+      "username": "aopanasenko",
+      "age": "123123",
+      "sex": "Women",
+      "email": "asdfa",
+      "address": "Гоголя, 49",
+      "phone": "",
+      "website": "aasd",
+      "company": "asd",
+      "id": 25543
     }
   ]
 }

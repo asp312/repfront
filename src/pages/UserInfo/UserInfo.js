@@ -43,14 +43,14 @@ function UserInfo({ list, setList }) {
         fetch(`http://localhost:3001/users/${params.id}`, {
             method: 'DELETE',
         })
-            .then(() => {
-                // const listWithoutRemovedUser = list.filter(user => user.id !== params.id);
-                setList(prevList => prevList.filter(user => user.id !== params.id));
-                history.push('/');
-            })
+            // .then(() => {
+            //     const listWithoutRemovedUser = list.filter(user => user.id !== +params.id);
+            //     setList(listWithoutRemovedUser);
+            // })
+            .then(() => history.push('/'))
             .catch(err => console.error(err));
 
-    }, [list, params]);
+    }, [list]);
 
     const item = list.find((user) => {
        return user.id === +params.id;
