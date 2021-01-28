@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useContext} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { styled } from '@material-ui/core';
@@ -7,6 +7,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Box from '@material-ui/core/Box';
 import { useParams, useHistory } from 'react-router-dom';
+import { CreateList } from '../../context/CreateList';
 
 
 
@@ -33,9 +34,9 @@ const TypWrapper = styled(Box)({
     marginLeft: '40%',
 });
 
-function UserInfo({ list, setList }) {
+function UserInfo() {
     // Получаем параметры из адресной строки преобразованные в строку
-    
+    const {list, setList} = useContext(CreateList);
     const history = useHistory();
 
 

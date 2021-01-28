@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, useLocation, useParams } from 'react-router';
 import './style.css';
-
+import { CreateList } from '../context/CreateList';
 import UserTable from './pages/UserTable/UserTable';
 import UserInfo from './pages/UserInfo/UserInfo';
 import { DATA_PER_PAGE } from './constants';
@@ -15,7 +15,7 @@ function App() {
 
     const params = useParams();
     const location = useLocation();
-
+    
     // Нужно для поиска на стороне клиента
     // const [searchedUsers, setSearchUsers] = useState([]);
 
@@ -58,6 +58,7 @@ function App() {
     }, [location.pathname]);
 
     return (
+        <CreateList.Provider value={{list:listToShow, setList}}>
         <Switch>
             <Route
                 exact path="/"
@@ -74,17 +75,14 @@ function App() {
                     />
                 )}
             />
-            <Route path="/user/:id" render={() => (<UserInfo list={listToShow} setList={setList}  />)} />
             <Route
                 path="/user/:id"
                 render={() => (
-                    <UserInfo
-                        list={listToShow}
-                        setList={setList}
-                    />
+                    <UserInfo/>
                 )}
             />
         </Switch>
+        </CreateList.Provider>
     )
 }
 
