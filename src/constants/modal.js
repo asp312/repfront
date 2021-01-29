@@ -1,0 +1,4 @@
+export const MODAL_NAME = {
+    SUCCESS_MODAL: 'SUCCESS_MODAL',
+    FAILURE_MODAL: 'FAILURE_MODAL',
+};

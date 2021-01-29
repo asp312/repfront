@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import Paper from '@material-ui/core/Paper';
 import {Button, Input, Table, Title, SearchInput} from '../../components';
 import FormControl from '@material-ui/core/FormControl';
@@ -8,8 +8,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import {makeStyles, styled} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-import {DATA_PER_PAGE} from '../../constants';
+import {DATA_PER_PAGE, MODAL_NAME} from '../../constants';
 import {useParams} from 'react-router-dom';
+import {ModalContext} from '../../context/ModalContext';
 
 
 
@@ -55,6 +56,8 @@ const GridWrapper = styled(Box)({
 const UserTable = ({ list, setList, searchString, setSearchString, currentPage, setCurrentPage, amountOfUser }) => {
     const classes = useStyles();
 
+    const { setModalName } = useContext(ModalContext);
+
     const countOfPages = Math.round(amountOfUser / DATA_PER_PAGE);
 
     const [userToAdd, setUserToAdd] = useState({
@@ -75,18 +78,6 @@ const UserTable = ({ list, setList, searchString, setSearchString, currentPage, 
     const userEnough = list.length <= 10;
 
     const addItemToList = useCallback(() => {
-        setUserToAdd({
-            name: '',
-            username: '',
-            age: '',
-            sex: '',
-            email: '',
-            address: '',
-            phone: '',
-            website:'',
-            company: ''
-        });
-
         fetch('http://localhost:3001/users/', {
             method: 'POST',
             body: JSON.stringify(userToAdd),
@@ -98,9 +89,26 @@ const UserTable = ({ list, setList, searchString, setSearchString, currentPage, 
             .then(res => res.json())
             // После удачного запроса в теле ответа будет лежать обьект созданного пользователя
             // с новым присвоенным id -> добавляем его в наше состояние list
-            .then(userInfo => setList([...list, userInfo]))
+            .then(userInfo => {
+                setUserToAdd({
+                    name: '',
+                    username: '',
+                    age: '',
+                    sex: '',
+                    email: '',
+                    address: '',
+                    phone: '',
+                    website:'',
+                    company: ''
+                });
+                setList([...list, userInfo]);
+                setModalName(MODAL_NAME.SUCCESS_MODAL);
+            })
             // Отлавливаем ошибку
-            .catch(err => console.error(err))
+            .catch(err => {
+                console.error(err)
+                setModalName(MODAL_NAME.FAILURE_MODAL);
+            });
 
     }, [userToAdd]);
 

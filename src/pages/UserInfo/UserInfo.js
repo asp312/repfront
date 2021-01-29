@@ -8,6 +8,8 @@ import ListItem from '@material-ui/core/ListItem';
 import Box from '@material-ui/core/Box';
 import { useParams, useHistory } from 'react-router-dom';
 import { CreateList } from '../../context/CreateList';
+import {MODAL_NAME} from '../../constants';
+import { ModalContext } from '../../context/ModalContext';
 
 
 
@@ -37,8 +39,15 @@ const TypWrapper = styled(Box)({
 function UserInfo() {
     // Получаем параметры из адресной строки преобразованные в строку
     const {list, setList} = useContext(CreateList);
-    const history = useHistory();
+    const { setModalName } = useContext(ModalContext);
 
+    const history = useHistory();
+    const params = useParams();
+
+    const handleOpenSuccessModal = useCallback(
+        () => setModalName(MODAL_NAME.SUCCESS_MODAL),
+        [],
+    );
 
     const handleButtonClick = useCallback(() => {
         fetch(`http://localhost:3001/users/${params.id}`, {
@@ -84,6 +93,7 @@ function UserInfo() {
                 </Wrapper>
             </GridWrapper>
             <Button  text={'Go to homepage'} onClick={handleButtonClick}/>
+            <Button  text={'Open success modal'} onClick={handleOpenSuccessModal}/>
         </Paper>
     )
 };

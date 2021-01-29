@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, useLocation, useParams } from 'react-router';
 import './style.css';
-import { CreateList } from '../context/CreateList';
+import { CreateList } from './context/CreateList';
+import { ModalContext } from './context/ModalContext';
 import UserTable from './pages/UserTable/UserTable';
 import UserInfo from './pages/UserInfo/UserInfo';
 import { DATA_PER_PAGE } from './constants';
+import { ModalBlock } from './components';
 
 
 function App() {
@@ -12,10 +14,12 @@ function App() {
     const [amountOfUsers, setAmountOfUsers] = useState(0);
     const [searchString, setSearchString] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    // Состояние для модальных окон
+    const [modalName, setModalName] = useState('');
 
     const params = useParams();
     const location = useLocation();
-    
+
     // Нужно для поиска на стороне клиента
     // const [searchedUsers, setSearchUsers] = useState([]);
 
@@ -58,30 +62,33 @@ function App() {
     }, [location.pathname]);
 
     return (
-        <CreateList.Provider value={{list:listToShow, setList}}>
-        <Switch>
-            <Route
-                exact path="/"
-                render={() => (
-                    <UserTable
-                        list={listToShow}
-                        amountOfUser={amountOfUsers}
-                        setList={setList}
-                        searchString={searchString}
-                        setSearchString={setSearchString}
-                        currentPage={currentPage}
-                        setCurrentPage={setCurrentPage}
-                        params ={params}
+        <CreateList.Provider value={{ list:listToShow, setList }}>
+            <ModalContext.Provider value={{ modalName, setModalName }}>
+                <ModalBlock />
+                <Switch>
+                    <Route
+                        exact path="/"
+                        render={() => (
+                            <UserTable
+                                list={listToShow}
+                                amountOfUser={amountOfUsers}
+                                setList={setList}
+                                searchString={searchString}
+                                setSearchString={setSearchString}
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}
+                                params ={params}
+                            />
+                        )}
                     />
-                )}
-            />
-            <Route
-                path="/user/:id"
-                render={() => (
-                    <UserInfo/>
-                )}
-            />
-        </Switch>
+                    <Route
+                        path="/user/:id"
+                        render={() => (
+                            <UserInfo/>
+                        )}
+                    />
+                </Switch>
+            </ModalContext.Provider>
         </CreateList.Provider>
     )
 }
@@ -90,9 +97,10 @@ export default App;
 
 /*
     TODO:
-        1) Не показывать пагинацию, когда на странице менее и равно 10 пользователям
-        2) Добавить еще одну колонку в таблицу, в которой будет иконка на измение
-        2.1) На иконку повесить событие клика, при срабатывании которого в инпуты будут подставляться значения выбранной сущности
-        2.2) Рядом с кнопкой Add Element добавить кнопку Change Element, на которой будет обработчик onClick, который будет
-            отправлять PUT запрос на изменение пользователя
+       1) Оформить модальные окна SuccessModal и FailureModal (заголовок, тело сообщения, кнопка)
+       2) Добавить модальное окно для подтвержения удаления пользователя с двумя кнопками: Отмена и Подтвердить
+        2.1) При нажатии на Отмена - модалка закрывается
+        2.2) При нажатии на Подтвердить - запрос на удаление уходит на сервер
+        2.3) В случае, если запрос завершился с ошибкой в блоке catch вызывать фунцкию setModalName(MODAl_NAME.FAILURE_MODAL)
+        2.4) Не забыть, что setModalName хранится в контексте ModalContext
  */
