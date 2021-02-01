@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useContext} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { styled } from '@material-ui/core';
@@ -6,7 +6,10 @@ import { Button } from '../../components';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Box from '@material-ui/core/Box';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { CreateList } from '../../context/CreateList';
+import {MODAL_NAME} from '../../constants';
+import { ModalContext } from '../../context/ModalContext';
 
 
 
@@ -33,24 +36,22 @@ const TypWrapper = styled(Box)({
     marginLeft: '40%',
 });
 
-function UserInfo({ list, setList }) {
+function UserInfo() {
     // Получаем параметры из адресной строки преобразованные в строку
-    
-    const history = useHistory();
+    const {list, setList} = useContext(CreateList);
+    const { setModalName } = useContext(ModalContext);
 
+    const params = useParams();
 
-    const handleButtonClick = useCallback(() => {
-        fetch(`http://localhost:3001/users/${params.id}`, {
-            method: 'DELETE',
-        })
-            // .then(() => {
-            //     const listWithoutRemovedUser = list.filter(user => user.id !== +params.id);
-            //     setList(listWithoutRemovedUser);
-            // })
-            .then(() => history.push('/'))
-            .catch(err => console.error(err));
+    const handleOpenSuccessModal = useCallback(
+        () => setModalName(MODAL_NAME.SUCCESS_MODAL),
+        [],
+    );
+    const handleOpenChoiceModal = useCallback(
+        () => setModalName(MODAL_NAME.CHOICE_MODAL),
+        [],
+    );
 
-    }, [list]);
 
     const item = list.find((user) => {
        return user.id === +params.id;
@@ -82,7 +83,8 @@ function UserInfo({ list, setList }) {
                     </List>
                 </Wrapper>
             </GridWrapper>
-            <Button  text={'Go to homepage'} onClick={handleButtonClick}/>
+            <Button  text={'Go to homepage'} onClick={handleOpenChoiceModal}/>
+            <Button  text={'Open success modal'} onClick={handleOpenSuccessModal}/>
         </Paper>
     )
 };
