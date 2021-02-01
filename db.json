@@ -2,18 +2,6 @@
   "users": [
     {
       "name": "Andrey",
-      "username": "aopanasenko",
-      "age": "123123",
-      "sex": "Men",
-      "email": "asdfa",
-      "address": "Гоголя, 49",
-      "phone": "",
-      "website": "aasd",
-      "company": "asd",
-      "id": 25543
-    },
-    {
-      "name": "Andrey",
       "username": "MEGATRON",
       "age": "12",
       "sex": "Men",

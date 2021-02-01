@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { FailureModal } from './FailureModal';
 import { SuccessModal } from './SuccesModal';
@@ -17,10 +17,15 @@ export const ModalBlock = () => {
     const history = useHistory();
     const params = useParams();
 
+    useEffect(() => {
+
+    }, [params]);
+
     const handleCloseModal = useCallback(
         () => setModalName(''),
         [],
     );
+
     const handleButtonClick = useCallback(() => {
         fetch(`http://localhost:3001/users/${params.id}`, {
             method: 'DELETE',
@@ -31,7 +36,7 @@ export const ModalBlock = () => {
                 setModalName(MODAL_NAME.FAILURE_MODAL);
             });
 
-    }, [list]);
+    }, [list, params]);
 
 
     return (
