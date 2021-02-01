@@ -14,7 +14,6 @@ export const Table = ({ arr, changeItem }) => {
         changeItem(item);
     }, []);
 
-
     return (
         <table className = "table">
             <TableHead>

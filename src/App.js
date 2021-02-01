@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, useLocation, useParams } from 'react-router';
+import { Switch, Route, useLocation } from 'react-router';
 import './style.css';
 
 import UserTable from './pages/UserTable/UserTable';
@@ -13,7 +13,6 @@ function App() {
     const [searchString, setSearchString] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
 
-    const params = useParams();
     const location = useLocation();
 
     // Нужно для поиска на стороне клиента
@@ -70,11 +69,9 @@ function App() {
                         setSearchString={setSearchString}
                         currentPage={currentPage}
                         setCurrentPage={setCurrentPage}
-                        params ={params}
                     />
                 )}
             />
-            <Route path="/user/:id" render={() => (<UserInfo list={listToShow} setList={setList}  />)} />
             <Route
                 path="/user/:id"
                 render={() => (
@@ -89,12 +86,3 @@ function App() {
 }
 
 export default App;
-
-/*
-    TODO:
-        1) Не показывать пагинацию, когда на странице менее и равно 10 пользователям
-        2) Добавить еще одну колонку в таблицу, в которой будет иконка на измение
-        2.1) На иконку повесить событие клика, при срабатывании которого в инпуты будут подставляться значения выбранной сущности
-        2.2) Рядом с кнопкой Add Element добавить кнопку Change Element, на которой будет обработчик onClick, который будет
-            отправлять PUT запрос на изменение пользователя
- */

@@ -9,7 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {makeStyles, styled} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import {DATA_PER_PAGE} from '../../constants';
-import {useParams} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +50,15 @@ const GridWrapper = styled(Box)({
 });
 
 
-const UserTable = ({ list, setList, searchString, setSearchString, currentPage, setCurrentPage, amountOfUser }) => {
+const UserTable = ({
+    list,
+    setList,
+    searchString,
+    setSearchString,
+    currentPage,
+    setCurrentPage,
+    amountOfUser
+}) => {
     const classes = useStyles();
 
     const countOfPages = Math.round(amountOfUser / DATA_PER_PAGE);
@@ -265,13 +272,12 @@ const UserTable = ({ list, setList, searchString, setSearchString, currentPage, 
                 {
                     !userEnough && (
                         <Pagination
-                    count={countOfPages}
-                    onChange={handleChangePage}
-                    page={currentPage}
-                    color={'primary'}
-                    />
+                            count={countOfPages}
+                            onChange={handleChangePage}
+                            page={currentPage}
+                            color={'primary'}
+                        />
                     )
-
                 }
             </Paper>
         </Wrapper>
