@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from '@material-ui/core/Modal';
 
 import { Button } from '../';
-import { ModalContentWrap } from './styled';
+import { ModalContentWrap, ButtonContentWrap } from './styled';
 
 
 export const FailureModal = ({ isOpen, onClose }) => {
@@ -10,7 +10,10 @@ export const FailureModal = ({ isOpen, onClose }) => {
         <Modal open={isOpen} onClose={onClose}>
             <ModalContentWrap>
                 <h1>Failure modal</h1>
-                <Button  text={'Close modal'} onClick={onClose}/>
+                <h2>Запрос отклонен, повторите попытку позже</h2>
+                <ButtonContentWrap>
+                    <Button  text={'Close modal'} onClick={onClose}/>
+                </ButtonContentWrap>
             </ModalContentWrap>
         </Modal>
     )

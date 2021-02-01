@@ -2,18 +2,6 @@
   "users": [
     {
       "name": "Andrey",
-      "username": "New username",
-      "age": "123123",
-      "sex": "Women",
-      "email": "asdfa",
-      "address": "Гоголя, 49",
-      "phone": "",
-      "website": "aasd",
-      "company": "asd",
-      "id": 25
-    },
-    {
-      "name": "Andrey",
       "username": "aopanasenko",
       "age": "123123",
       "sex": "Men",

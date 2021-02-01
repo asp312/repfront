@@ -10,6 +10,7 @@ export const SuccessModal = ({ isOpen, onClose }) => {
         <Modal open={isOpen} onClose={onClose}>
             <ModalContentWrap>
                 <h1>Success modal</h1>
+                <h2>Запрос прошёл успешно</h2>
                 <Button  text={'Close modal'} onClick={onClose}/>
             </ModalContentWrap>
         </Modal>

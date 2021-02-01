@@ -11,7 +11,7 @@ import Box from '@material-ui/core/Box';
 import {DATA_PER_PAGE, MODAL_NAME} from '../../constants';
 import {useParams} from 'react-router-dom';
 import {ModalContext} from '../../context/ModalContext';
-
+import {CreateList} from '../../context/CreateList';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,13 +53,13 @@ const GridWrapper = styled(Box)({
 });
 
 
-const UserTable = ({ list, setList, searchString, setSearchString, currentPage, setCurrentPage, amountOfUser }) => {
+const UserTable = ({ searchString, setSearchString, currentPage, setCurrentPage, amountOfUser }) => {
     const classes = useStyles();
 
     const { setModalName } = useContext(ModalContext);
 
     const countOfPages = Math.round(amountOfUser / DATA_PER_PAGE);
-
+    const {list, setList} = useContext(CreateList);
     const [userToAdd, setUserToAdd] = useState({
         name: '',
         username: '',
@@ -110,7 +110,7 @@ const UserTable = ({ list, setList, searchString, setSearchString, currentPage, 
                 setModalName(MODAL_NAME.FAILURE_MODAL);
             });
 
-    }, [userToAdd]);
+    }, [userToAdd, list, setList, setModalName]);
 
     const prepareUserToAdd = useCallback((value) => {
         setUserToAdd(prevState => ({
