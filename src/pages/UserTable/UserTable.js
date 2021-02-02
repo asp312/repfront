@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles, styled } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 
 import { Button, Input, Table, Title, SearchInput } from '../../components';
 import { DATA_PER_PAGE, MODAL_NAME } from '../../constants';
@@ -71,7 +71,7 @@ const UserTable = ({
     } = useSelector((state) => ({
         pageTitle: state.userReducer.someValue,
         isTitleEmpty: !state.userReducer.someValue,
-    }));
+    }), shallowEqual);
 
     const countOfPages = Math.round(amountOfUser / DATA_PER_PAGE);
     const {list, setList} = useContext(CreateList);
