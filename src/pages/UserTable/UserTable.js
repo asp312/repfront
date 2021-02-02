@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles, styled } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Button, Input, Table, Title, SearchInput } from '../../components';
 import { DATA_PER_PAGE, MODAL_NAME } from '../../constants';
@@ -60,13 +60,18 @@ const UserTable = ({
     currentPage,
     setCurrentPage,
     amountOfUser,
-    pageTitle,
-    isTitleEmpty,
-    changePageTitle
 }) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const { setModalName } = useContext(ModalContext);
+
+    const {
+        pageTitle, isTitleEmpty
+    } = useSelector((state) => ({
+        pageTitle: state.userReducer.someValue,
+        isTitleEmpty: !state.userReducer.someValue,
+    }));
 
     const countOfPages = Math.round(amountOfUser / DATA_PER_PAGE);
     const {list, setList} = useContext(CreateList);
@@ -167,7 +172,10 @@ const UserTable = ({
         })
     }, [userToAdd]);
 
-    const handleChangeTitle = useCallback(() => changePageTitle('New title'), []);
+    const handleChangeTitle = useCallback(
+        () => dispatch(changeSomeValue('New title')),
+        []
+    );
 
     return (
         <Wrapper>
@@ -304,13 +312,4 @@ const UserTable = ({
     );
 };
 
-const mapStateToProps = (state) => ({
-    pageTitle: state.userReducer.someValue,
-    isTitleEmpty: !state.userReducer.someValue,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    changePageTitle: (title) => dispatch(changeSomeValue(title)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserTable);
+export default UserTable;
