@@ -7,7 +7,7 @@ export const changeSomeValue = (value) => ({
 
 const initialState = {
     someValue: '',
-    users: [{ id: 1 }, { id: 2 }, { id: 3 }]
+    users: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,3 +23,14 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+
+/**
+ * TODO:
+ *  1. Написать экшен, который будет заполнять поле users пользователями, которые пришли с бэкенда
+ *  2. Вызывать этот экшен необходимо диспатчить после того, как данные пришли с бэкенда
+ *      3.1) Через connect()
+ *      3.2) Через useDispatch()
+ *  3. Нужно получить этих пользователей из хранилища в компоненте UserTable
+ *      3.1) Через connect()
+ *      3.2) Через useSelector()
+ */
