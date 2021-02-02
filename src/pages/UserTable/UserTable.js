@@ -1,18 +1,19 @@
-import React, {useCallback, useContext, useState} from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import Paper from '@material-ui/core/Paper';
-import {Button, Input, Table, Title, SearchInput} from '../../components';
 import FormControl from '@material-ui/core/FormControl';
 import Pagination from '@material-ui/lab/Pagination';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import {makeStyles, styled} from '@material-ui/core';
+import { makeStyles, styled } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-import {DATA_PER_PAGE, MODAL_NAME} from '../../constants';
-import {useParams} from 'react-router-dom';
-import {ModalContext} from '../../context/ModalContext';
-import {CreateList} from '../../context/CreateList';
+import { connect } from 'react-redux';
 
+import { Button, Input, Table, Title, SearchInput } from '../../components';
+import { DATA_PER_PAGE, MODAL_NAME } from '../../constants';
+import { ModalContext } from '../../context/ModalContext';
+import { CreateList } from '../../context/CreateList';
+import {changeSomeValue} from '../../ducks/user';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -54,12 +55,14 @@ const GridWrapper = styled(Box)({
 
 
 const UserTable = ({
-
     searchString,
     setSearchString,
     currentPage,
     setCurrentPage,
-    amountOfUser
+    amountOfUser,
+    pageTitle,
+    isTitleEmpty,
+    changePageTitle
 }) => {
     const classes = useStyles();
 
@@ -164,9 +167,17 @@ const UserTable = ({
         })
     }, [userToAdd]);
 
+    const handleChangeTitle = useCallback(() => changePageTitle('New title'), []);
+
     return (
         <Wrapper>
             <Paper elevation={3} className = "item4">
+                <h1>{pageTitle}</h1>
+                {
+                    isTitleEmpty && (
+                        <button onClick={handleChangeTitle}>Change title</button>
+                    )
+                }
                 <Title title={'First app'}/>
                 <InputWrapper>
                     <SearchInput
@@ -293,4 +304,13 @@ const UserTable = ({
     );
 };
 
-export default UserTable;
+const mapStateToProps = (state) => ({
+    pageTitle: state.userReducer.someValue,
+    isTitleEmpty: !state.userReducer.someValue,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    changePageTitle: (title) => dispatch(changeSomeValue(title)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserTable);

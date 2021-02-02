@@ -6,7 +6,8 @@ export const changeSomeValue = (value) => ({
 });
 
 const initialState = {
-    someValue: ''
+    someValue: '',
+    users: [{ id: 1 }, { id: 2 }, { id: 3 }]
 };
 
 const reducer = (state = initialState, action) => {

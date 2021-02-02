@@ -1,12 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import userReducer, { changeSomeValue } from './user';
-import anotherReducer from './user';
+import userReducer from './user';
 
 const rootReducer = combineReducers({
-    userReducer,
-    anotherReducer
+    userReducer
 });
 
 const store = createStore(
@@ -14,7 +12,5 @@ const store = createStore(
     {},
     composeWithDevTools()
 );
-
-store.dispatch(changeSomeValue('Some string'));
 
 export default store;
