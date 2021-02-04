@@ -52,7 +52,6 @@ function UserInfo() {
         [],
     );
 
-
     const item = list.find((user) => {
        return user.id === +params.id;
     });
