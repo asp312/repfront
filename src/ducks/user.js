@@ -1,5 +1,5 @@
 const CHANGE_SOME_VALUE = '@USER/CHANGE_SOME_VALUE';
-const ADD_USER_LIST = '';
+const ADD_USER_LIST = '@USER/ADD_USER_LIST';
 
 export const changeSomeValue = (value) => ({
     type: CHANGE_SOME_VALUE,
@@ -7,7 +7,7 @@ export const changeSomeValue = (value) => ({
 });
 export const addUserList = (arr) => ({
     type: ADD_USER_LIST,
-    payload: { arr }
+    payload: arr 
 });
 
 

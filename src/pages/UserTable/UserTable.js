@@ -174,18 +174,13 @@ const UserTable = ({
 
     const handleChangeTitle = useCallback(
         () => dispatch(addUserList(list)),
-        []
+        [list]
     );
 
     return (
         <Wrapper>
             <Paper elevation={3} className = "item4">
-                <h1>{pageTitle}</h1>
-                {
-                    isTitleEmpty && (
-                        <button onClick={handleChangeTitle}>Change title</button>
-                    )
-                }
+                <button onClick={handleChangeTitle}>Change title</button>
                 <Title title={'First app'}/>
                 <InputWrapper>
                     <SearchInput
