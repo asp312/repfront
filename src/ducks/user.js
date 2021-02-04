@@ -1,9 +1,15 @@
 const CHANGE_SOME_VALUE = '@USER/CHANGE_SOME_VALUE';
+const ADD_USER_LIST = '';
 
 export const changeSomeValue = (value) => ({
     type: CHANGE_SOME_VALUE,
     payload: value
 });
+export const addUserList = (arr) => ({
+    type: ADD_USER_LIST,
+    payload: { arr }
+});
+
 
 const initialState = {
     someValue: '',
@@ -16,6 +22,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 someValue: action.payload
+            };
+            case ADD_USER_LIST:
+            return {
+                ...state,
+                users: action.payload
             };
         default:
             return { ...state };

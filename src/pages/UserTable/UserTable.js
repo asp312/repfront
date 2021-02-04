@@ -13,7 +13,7 @@ import { Button, Input, Table, Title, SearchInput } from '../../components';
 import { DATA_PER_PAGE, MODAL_NAME } from '../../constants';
 import { ModalContext } from '../../context/ModalContext';
 import { CreateList } from '../../context/CreateList';
-import {changeSomeValue} from '../../ducks/user';
+import {addUserList} from '../../ducks/user';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -69,7 +69,7 @@ const UserTable = ({
     const {
         pageTitle, isTitleEmpty
     } = useSelector((state) => ({
-        pageTitle: state.userReducer.someValue,
+        pageTitle: state.userReducer.users,
         isTitleEmpty: !state.userReducer.someValue,
     }), shallowEqual);
 
@@ -173,7 +173,7 @@ const UserTable = ({
     }, [userToAdd]);
 
     const handleChangeTitle = useCallback(
-        () => dispatch(changeSomeValue('New title')),
+        () => dispatch(addUserList(list)),
         []
     );
 
