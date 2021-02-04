@@ -7,6 +7,8 @@ import UserTable from './pages/UserTable/UserTable';
 import UserInfo from './pages/UserInfo/UserInfo';
 import { DATA_PER_PAGE } from './constants';
 import { ModalBlock } from './components';
+import { fetchUsersData } from './ducks/user';
+import { useDispatch } from 'react-redux';
 
 
 function App() {
@@ -18,9 +20,7 @@ function App() {
     const [modalName, setModalName] = useState('');
 
     const location = useLocation();
-
-    // Нужно для поиска на стороне клиента
-    // const [searchedUsers, setSearchUsers] = useState([]);
+    const dispatch = useDispatch();
 
     // Поиск на стороне сервера
     useEffect(() => {
@@ -34,16 +34,12 @@ function App() {
         fetchData();
     }, [searchString, currentPage]);
 
-    // Поиск на стороне сервера
-    // const isSearchStringEmpty = searchString.length === 0;
-    // const usersToShow = isSearchStringEmpty ? list : searchedUsers;
-    //
-    // useEffect(() => {
-    //     const searchedUsers = list.filter(user => user.name.includes(searchString));
-    //
-    //     setSearchUsers(searchedUsers);
-    // }, [searchString]);
 
+    /**
+     * TODO:
+     *  1. Сделать асинхронный экшен, который будет получать данные о пользователях и класть их в хранилище
+     *  2. Считать данные о пользователях из хранилища и отрисовать в таблице
+     */
     useEffect(() => {
         const fetchData = async () => {
             // Получаем всех пользователей для определения их количества.
@@ -58,6 +54,8 @@ function App() {
         }
 
         fetchData();
+
+        dispatch(fetchUsersData());
     }, [location.pathname]);
 
     return (

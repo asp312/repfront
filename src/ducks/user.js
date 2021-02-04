@@ -5,11 +5,17 @@ export const changeSomeValue = (value) => ({
     type: CHANGE_SOME_VALUE,
     payload: value
 });
+
 export const addUserList = (arr) => ({
     type: ADD_USER_LIST,
-    payload: arr 
+    payload: arr
 });
 
+export const fetchUsersData = () => (dispatch) => {
+    fetch(`http://localhost:3001/users`)
+        .then(res => res.json())
+        .then(dataInJSON => dispatch(addUserList(dataInJSON)));
+};
 
 const initialState = {
     someValue: '',
