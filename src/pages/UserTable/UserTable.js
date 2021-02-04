@@ -13,7 +13,7 @@ import { Button, Input, Table, Title, SearchInput } from '../../components';
 import { DATA_PER_PAGE, MODAL_NAME } from '../../constants';
 import { ModalContext } from '../../context/ModalContext';
 import { CreateList } from '../../context/CreateList';
-import {changeSomeValue} from '../../ducks/user';
+import {addUserToList, changeSomeValue} from '../../ducks/user';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -62,7 +62,9 @@ const UserTable = ({
     amountOfUser,
     pageTitle,
     isTitleEmpty,
-    changePageTitle
+    changePageTitle,
+    userListFromStore,
+    addUsersToStore
 }) => {
     const classes = useStyles();
 
@@ -167,12 +169,22 @@ const UserTable = ({
         })
     }, [userToAdd]);
 
-    const handleChangeTitle = useCallback(() => changePageTitle('New title'), []);
+    const handleChangeTitle = useCallback(() => {
+        changePageTitle('New title');
+        addUsersToStore(list);
+    }, [list]);
 
     return (
         <Wrapper>
             <Paper elevation={3} className = "item4">
                 <h1>{pageTitle}</h1>
+                <ul>
+                    {
+                        userListFromStore.map(u => (
+                            <li>{u.username}</li>
+                        ))
+                    }
+                </ul>
                 {
                     isTitleEmpty && (
                         <button onClick={handleChangeTitle}>Change title</button>
@@ -306,11 +318,13 @@ const UserTable = ({
 
 const mapStateToProps = (state) => ({
     pageTitle: state.userReducer.someValue,
+    userListFromStore: state.userReducer.users,
     isTitleEmpty: !state.userReducer.someValue,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changePageTitle: (title) => dispatch(changeSomeValue(title)),
+    addUsersToStore: (userList) => dispatch(addUserToList(userList))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserTable);
