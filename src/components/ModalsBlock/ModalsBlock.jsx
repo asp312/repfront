@@ -1,28 +1,34 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { FailureModal } from './FailureModal';
 import { SuccessModal } from './SuccesModal';
 import { ChoiceModal } from './ChoiceModal';
-import { CreateList } from '../../context/CreateList';
 import {MODAL_NAME} from '../../constants';
-import { ModalContext } from '../../context/ModalContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetState, setModalName } from '../../ducks/modal';
 
 
 export const ModalBlock = () => {
-    const { modalName, setModalName } = useContext(ModalContext);
-    const {list, setList} = useContext(CreateList);
-    const isSuccessModalOpen = modalName === MODAL_NAME.SUCCESS_MODAL;
-    const isFailureModalOpen = modalName === MODAL_NAME.FAILURE_MODAL;
-    const isChoiceModalOpen = modalName === MODAL_NAME.CHOICE_MODAL;
+    const dispatch = useDispatch();
     const history = useHistory();
     const params = useParams();
+
+    const {
+        isSuccessModalOpen,
+        isFailureModalOpen,
+        isChoiceModalOpen
+    } = useSelector((state) => ({
+        isSuccessModalOpen: state.modalReducer === MODAL_NAME.SUCCESS_MODAL,
+        isFailureModalOpen: state.modalReducer === MODAL_NAME.FAILURE_MODAL,
+        isChoiceModalOpen: state.modalReducer === MODAL_NAME.CHOICE_MODAL
+    }));
 
     useEffect(() => {
 
     }, [params]);
 
     const handleCloseModal = useCallback(
-        () => setModalName(''),
+        () => dispatch(resetState()),
         [],
     );
 
@@ -33,10 +39,10 @@ export const ModalBlock = () => {
             .then(() => history.push('/'))
             .catch(err => {
                 console.error(err)
-                setModalName(MODAL_NAME.FAILURE_MODAL);
+                dispatch(setModalName(MODAL_NAME.FAILURE_MODAL));
             });
 
-    }, [list, params]);
+    }, [params, setModalName, history]);
 
 
     return (

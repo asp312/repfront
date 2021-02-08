@@ -1,38 +1,91 @@
-const CHANGE_SOME_VALUE = '@USER/CHANGE_SOME_VALUE';
-const ADD_USER_LIST = '@USER/ADD_USER_LIST';
+import { DATA_PER_PAGE } from '../constants';
 
-export const changeSomeValue = (value) => ({
-    type: CHANGE_SOME_VALUE,
-    payload: value
+const SET_AMOUNT_OF_USERS = '@USER/SET_AMOUNT_OF_USERS';
+const SET_CURRENT_PAGE = '@USER/SET_CURRENT_PAGE';
+
+const FETCH_USER_LIST_START = '@USER/FETCH_USER_LIST_START';
+const FETCH_USER_LIST_SUCCESS = '@USER/FETCH_USER_LIST_SUCCESS';
+const FETCH_USER_LIST_ERROR = '@USER/FETCH_USER_LIST_ERROR';
+
+const setAmountOfUsers = (amountOfUsers) => ({
+    type: SET_AMOUNT_OF_USERS,
+    payload: amountOfUsers
 });
 
-export const addUserList = (arr) => ({
-    type: ADD_USER_LIST,
-    payload: arr
+export const setCurrentPage = (page) => ({
+    type: SET_CURRENT_PAGE,
+    payload: page
 });
 
-export const fetchUsersData = () => (dispatch) => {
+const fetchUserListStart = () => ({
+   type: FETCH_USER_LIST_START
+});
+
+const fetchUserListSuccess = (userList) => ({
+    type: FETCH_USER_LIST_SUCCESS,
+    payload: userList
+});
+
+const fetchUserListError = () => ({
+    type: FETCH_USER_LIST_ERROR
+});
+
+export const fetchUserList = () => (dispatch, getState) => {
+    const { currentPage } = getState().userReducer;
+
+    dispatch(fetchUserListStart());
+
+    // Получаем всех пользователей для определения их количества.
+    // По этому количеству будем рассчитывать количество страниц для компонента Pagination
     fetch(`http://localhost:3001/users`)
         .then(res => res.json())
-        .then(dataInJSON => dispatch(addUserList(dataInJSON)));
+        .then(dataInJSON => dispatch(setAmountOfUsers(dataInJSON.length)))
+        .catch(err => dispatch(fetchUserListError()));
+
+    fetch(`http://localhost:3001/users?_page=${currentPage}&_limit=${DATA_PER_PAGE}`)
+        .then(res => res.json())
+        .then(dataInJSON => dispatch(fetchUserListSuccess(dataInJSON)))
+        .catch(err => dispatch(fetchUserListError()));
 };
 
 const initialState = {
-    someValue: '',
-    users: []
+    userList: [],
+    amountOfUsers: 0,
+    currentPage: 1,
+    isFetching: false,
+    isError: false,
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case CHANGE_SOME_VALUE:
+        case FETCH_USER_LIST_START:
             return {
                 ...state,
-                someValue: action.payload
+                isFetching: true,
+                isError: false
             };
-            case ADD_USER_LIST:
+        case FETCH_USER_LIST_SUCCESS:
             return {
                 ...state,
-                users: action.payload
+                isFetching: false,
+                isError: false,
+                userList: action.payload,
+            };
+        case FETCH_USER_LIST_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                isError: true
+            };
+        case SET_AMOUNT_OF_USERS:
+            return {
+                ...state,
+                amountOfUsers: action.payload
+            };
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: action.payload
             };
         default:
             return { ...state };
@@ -40,14 +93,3 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
-
-/**
- * TODO:
- *  1. Написать экшен, который будет заполнять поле users пользователями, которые пришли с бэкенда
- *  2. Вызывать этот экшен необходимо диспатчить после того, как данные пришли с бэкенда
- *      3.1) Через connect()
- *      3.2) Через useDispatch()
- *  3. Нужно получить этих пользователей из хранилища в компоненте UserTable
- *      3.1) Через connect()
- *      3.2) Через useSelector()
- */

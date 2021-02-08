@@ -4,9 +4,11 @@ import thunk from 'redux-thunk';
 
 
 import userReducer from './user';
+import modalReducer from './modal';
 
 const rootReducer = combineReducers({
-    userReducer
+    userReducer,
+    modalReducer
 });
 
 const store = createStore(

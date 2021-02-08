@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import FormControl from '@material-ui/core/FormControl';
 import Pagination from '@material-ui/lab/Pagination';
@@ -7,12 +7,15 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles, styled } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Alert from '@material-ui/lab/Alert';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Button, Input, Table, Title, SearchInput } from '../../components';
 import { DATA_PER_PAGE, MODAL_NAME } from '../../constants';
-import { ModalContext } from '../../context/ModalContext';
-import { CreateList } from '../../context/CreateList';
-import store from '../../ducks';
+import {fetchUserList, setCurrentPage} from '../../ducks/user';
+import { setModalName } from '../../ducks/modal';
+
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -29,8 +32,11 @@ const Wrapper = styled(Box)({
     margin: '30px auto',
 });
 const InputWrapper = styled(Box)({
+    display: 'flex',
+    justifyContent: 'center',
     width: '560px',
-    margin: '30px 45%',
+    marginTop: '30px',
+    marginBottom: '30px',
 });
 const ButtonWrapper = styled(Box)({
     display: 'grid',
@@ -49,23 +55,36 @@ const GridWrapper = styled(Box)({
     columnGap: '20px',
     rowGap: '20px',
     width: '1000px',
-    marginLeft: '60px'
 });
 
 
 const UserTable = ({
     searchString,
     setSearchString,
-    currentPage,
-    setCurrentPage,
-    amountOfUser,
 }) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
-    const { setModalName } = useContext(ModalContext);
+    const {
+        userList,
+        isFetching,
+        isError,
+        amountOfUsers,
+        currentPage,
+        isListEmpty,
+        shouldShowPagination
+    } = useSelector((state) => ({
+        userList: state.userReducer.userList,
+        amountOfUsers: state.userReducer.amountOfUsers,
+        currentPage: state.userReducer.currentPage,
+        isListEmpty: state.userReducer.amountOfUsers === 0,
+        shouldShowPagination: state.userReducer.amountOfUsers > 10,
+        isFetching: state.userReducer.isFetching,
+        isError: state.userReducer.isError,
+    }));
 
-    const countOfPages = Math.round(amountOfUser / DATA_PER_PAGE);
-    const {list, setList} = useContext(CreateList);
+    const countOfPages = Math.round(amountOfUsers / DATA_PER_PAGE);
+
     const [userToAdd, setUserToAdd] = useState({
         name: '',
         username: '',
@@ -80,9 +99,6 @@ const UserTable = ({
 
     const isAddButtonDisabled = !userToAdd.name || !userToAdd.username || !userToAdd.age || !userToAdd.sex;
 
-    const isListEmpty = list.length === 0;
-    const userEnough = list.length <= 10;
-
     const addItemToList = useCallback(() => {
         fetch('http://localhost:3001/users/', {
             method: 'POST',
@@ -92,31 +108,17 @@ const UserTable = ({
                 'Content-Type': 'application/json'
             },
         })
-            .then(res => res.json())
-            // После удачного запроса в теле ответа будет лежать обьект созданного пользователя
-            // с новым присвоенным id -> добавляем его в наше состояние list
-            .then(userInfo => {
-                setUserToAdd({
-                    name: '',
-                    username: '',
-                    age: '',
-                    sex: '',
-                    email: '',
-                    address: '',
-                    phone: '',
-                    website:'',
-                    company: ''
-                });
-                setList([...list, userInfo]);
-                setModalName(MODAL_NAME.SUCCESS_MODAL);
+            .then(() => {
+                dispatch(fetchUserList());
+                dispatch(setModalName(MODAL_NAME.SUCCESS_MODAL));
             })
             // Отлавливаем ошибку
             .catch(err => {
                 console.error(err)
-                setModalName(MODAL_NAME.FAILURE_MODAL);
+                dispatch(setModalName(MODAL_NAME.FAILURE_MODAL));
             });
 
-    }, [userToAdd, list, setList, setModalName]);
+    }, [userToAdd, userList, setModalName]);
 
     const prepareUserToAdd = useCallback((value) => {
         setUserToAdd(prevState => ({
@@ -133,7 +135,7 @@ const UserTable = ({
     }, [userToAdd]);
 
     const handleChangePage = useCallback((e, page) => {
-        setCurrentPage(page);
+        dispatch(setCurrentPage(page));
     }, []);
 
     const changeItemInList = useCallback(() => {
@@ -145,21 +147,7 @@ const UserTable = ({
             },
         })
         .then(() => {
-            const filteredUserList = list.filter(user => user.id !== userToAdd.id);
-
-            setList([...filteredUserList, userToAdd]);
-
-            setUserToAdd({
-                name: '',
-                username: '',
-                age: '',
-                sex: '',
-                email: '',
-                address: '',
-                phone: '',
-                website:'',
-                company: ''
-            });
+            dispatch(fetchUserList());
         })
     }, [userToAdd]);
 
@@ -273,12 +261,22 @@ const UserTable = ({
                     />
                 </ButtonWrapper>
                 {
-                    !isListEmpty && (
-                        <Table arr={store.getState().users} changeItem={setUserToAdd} />
+                    isFetching && (
+                        <CircularProgress />
                     )
                 }
                 {
-                    !userEnough && (
+                    isError && (
+                        <Alert severity="error">Error while fetching user list. Please try again.</Alert>
+                    )
+                }
+                {
+                    !isListEmpty && (
+                        <Table arr={userList} changeItem={setUserToAdd} />
+                    )
+                }
+                {
+                    shouldShowPagination && (
                         <Pagination
                             count={countOfPages}
                             onChange={handleChangePage}
