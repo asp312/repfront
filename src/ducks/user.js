@@ -7,6 +7,10 @@ const FETCH_USER_LIST_START = '@USER/FETCH_USER_LIST_START';
 const FETCH_USER_LIST_SUCCESS = '@USER/FETCH_USER_LIST_SUCCESS';
 const FETCH_USER_LIST_ERROR = '@USER/FETCH_USER_LIST_ERROR';
 
+const ADD_USER_TO_LIST_START = '@USER/FETCH_USER_LIST_START';
+const ADD_USER_TO_LIST_SUCCESS = '@USER/FETCH_USER_LIST_SUCCESS';
+const ADD_USER_TO_LIST_ERROR = '@USER/FETCH_USER_LIST_ERROR';
+
 const setAmountOfUsers = (amountOfUsers) => ({
     type: SET_AMOUNT_OF_USERS,
     payload: amountOfUsers
@@ -54,6 +58,7 @@ const initialState = {
     currentPage: 1,
     isFetching: false,
     isError: false,
+    searchString: ''
 };
 
 const reducer = (state = initialState, action) => {
