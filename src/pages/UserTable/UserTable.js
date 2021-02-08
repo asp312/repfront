@@ -12,6 +12,7 @@ import { Button, Input, Table, Title, SearchInput } from '../../components';
 import { DATA_PER_PAGE, MODAL_NAME } from '../../constants';
 import { ModalContext } from '../../context/ModalContext';
 import { CreateList } from '../../context/CreateList';
+import store from '../../ducks';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -273,7 +274,7 @@ const UserTable = ({
                 </ButtonWrapper>
                 {
                     !isListEmpty && (
-                        <Table arr={list} changeItem={setUserToAdd} />
+                        <Table arr={store.getState().users} changeItem={setUserToAdd} />
                     )
                 }
                 {
