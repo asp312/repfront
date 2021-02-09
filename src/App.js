@@ -14,9 +14,9 @@ function App() {
     const location = useLocation();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(searchingUsers())
-    }, [searchString, currentPage]);
+    // useEffect(() => {
+    //     dispatch(searchingUsers())
+    // }, [searchString, currentPage]);
 
     // Поиск на стороне сервера
     // useEffect(() => {

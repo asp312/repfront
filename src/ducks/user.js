@@ -149,7 +149,7 @@ const initialState = {
     }
 };
 
-const searchingUsers = () => (dispatch, getState) => {}
+// const searchingUsers = () => (dispatch, getState) => {}
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
