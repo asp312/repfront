@@ -1,5 +1,6 @@
 import {DATA_PER_PAGE, MODAL_NAME} from '../constants';
-import { setModalName } from './modal';
+import { setModalName, resetState } from './modal';
+
 
 const SET_AMOUNT_OF_USERS = '@USER/SET_AMOUNT_OF_USERS';
 const SET_CURRENT_PAGE = '@USER/SET_CURRENT_PAGE';
@@ -17,6 +18,22 @@ const CHANGE_USER_SUCCESS = '@USER/CHANGE_USER_SUCCESS';
 const CHANGE_USER_ERROR = '@USER/ADD_USER_ERROR';
 
 const CHANGE_USER_FIELD = '@USER/CHANGE_USER_FIELD';
+
+const DELETE_USER_START = '@USER/DELETE_USER_START';
+const DELETE_USER_SUCCESS = '@USER/DELETE_USER_SUCCESS';
+const DELETE_USER_ERROR = '@USER/DELETE_USER_ERROR';
+
+const deleteUserStart = () => ({
+    type: DELETE_USER_START
+});
+
+const deleteUserSuccess = () => ({
+    type: DELETE_USER_SUCCESS
+});
+
+const deleteUserError = () => ({
+    type: DELETE_USER_ERROR
+});
 
 const changeUserStart = () => ({
     type: CHANGE_USER_START
@@ -129,6 +146,23 @@ export const updateUserInfo = () => (dispatch, getState) => {
         .catch(() => dispatch(changeUserStartError()));
 };
 
+export const deleteUser = (params) => (dispatch, getState) => {
+
+    dispatch(deleteUserStart());
+
+    fetch(`http://localhost:3001/users/${params.id}`, {
+            method: 'DELETE',
+        })
+            .then(() => {
+                dispatch(deleteUserSuccess());
+                dispatch(resetState());
+            })
+            .catch(err => {
+                dispatch(deleteUserError());
+                dispatch(setModalName(MODAL_NAME.FAILURE_MODAL));
+            });
+}
+
 const initialState = {
     userList: [],
     amountOfUsers: 0,
@@ -223,6 +257,24 @@ const reducer = (state = initialState, action) => {
                 userToAdd: { ...initialState.userToAdd }
             };
         case CHANGE_USER_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                isError: true,
+            };
+            case DELETE_USER_START:
+            return {
+                ...state,
+                isFetching: true,
+                isError: false,
+            };
+        case DELETE_USER_SUCCESS:
+            return {
+                ...state.splice(...initialState.userToAdd.id, 1),
+                isFetching: false,
+                isError: false,
+            };
+        case DELETE_USER_ERROR:
             return {
                 ...state,
                 isFetching: false,
