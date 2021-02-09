@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, useLocation } from 'react-router';
 import './style.css';
-import { ModalContext } from './context/ModalContext';
 import UserTable from './pages/UserTable/UserTable';
 import UserInfo from './pages/UserInfo/UserInfo';
 import { ModalBlock } from './components';
@@ -63,6 +62,8 @@ export default App;
  *  1. Вытащить в Store:
  *      1.1. Логику поиска в Store
  *      1.2. Логику добавления
+ *      1.3. Логику изменения
+ *      1.4. Логику удаления
  *  2. Зарефачить страницу UserInfo c учетом новой архитектуры
  */
 
