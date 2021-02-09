@@ -10,7 +10,8 @@ import { useParams } from 'react-router-dom';
 import { CreateList } from '../../context/CreateList';
 import {MODAL_NAME} from '../../constants';
 import { ModalContext } from '../../context/ModalContext';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { setModalName } from '../../ducks/modal';
 
 
 const GridWrapper = styled(Box)({
@@ -35,24 +36,27 @@ const Wrapper = styled(Box)({
 const TypWrapper = styled(Box)({
     marginLeft: '40%',
 });
+const dispatch = useDispatch();
+const {
+    userList
+} = useSelector((state) => ({
+    userList: state.userReducer.userList,
+}));
 
 function UserInfo() {
-    // Получаем параметры из адресной строки преобразованные в строку
-    const {list, setList} = useContext(CreateList);
-    const { setModalName } = useContext(ModalContext);
 
     const params = useParams();
 
     const handleOpenSuccessModal = useCallback(
-        () => setModalName(MODAL_NAME.SUCCESS_MODAL),
+        () => dispatch(setModalName(MODAL_NAME.SUCCESS_MODAL)),
         [],
     );
     const handleOpenChoiceModal = useCallback(
-        () => setModalName(MODAL_NAME.CHOICE_MODAL),
+        () => dispatch(setModalName(MODAL_NAME.CHOICE_MODAL)),
         [],
     );
 
-    const item = list.find((user) => {
+    const item = userList.find((user) => {
        return user.id === +params.id;
     });
 

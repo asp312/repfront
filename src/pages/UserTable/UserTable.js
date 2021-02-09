@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { Button, Input, Table, Title, SearchInput } from '../../components';
 import { DATA_PER_PAGE, MODAL_NAME } from '../../constants';
-import {fetchUserList, setCurrentPage} from '../../ducks/user';
+import {fetchUserList, setCurrentPage, adUserToList} from '../../ducks/user';
 import { setModalName } from '../../ducks/modal';
 
 
@@ -85,40 +85,26 @@ const UserTable = ({
 
     const countOfPages = Math.round(amountOfUsers / DATA_PER_PAGE);
 
-    const [userToAdd, setUserToAdd] = useState({
-        name: '',
-        username: '',
-        age: '',
-        sex: '',
-        email: '',
-        address: '',
-        phone: '',
-        website:'',
-        company: ''
-    });
+    const {
+        userToAdd
+    } = useSelector((state) => ({
+        userToAdd: state.userReducer.userToAdd
+    }));
+
+    //const [userToAdd, setUserToAdd] = useState({
+      //  name: '',
+        //username: '',
+        //age: '',
+        //sex: '',
+        //email: '',
+        //address: '',
+        //phone: '',
+        //website:'',
+        //company: ''
+    //});
 
     const isAddButtonDisabled = !userToAdd.name || !userToAdd.username || !userToAdd.age || !userToAdd.sex;
 
-    const addItemToList = useCallback(() => {
-        fetch('http://localhost:3001/users/', {
-            method: 'POST',
-            body: JSON.stringify(userToAdd),
-            // В заголовке явно указываем, что в теле запроса лежит JSON формат
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-            .then(() => {
-                dispatch(fetchUserList());
-                dispatch(setModalName(MODAL_NAME.SUCCESS_MODAL));
-            })
-            // Отлавливаем ошибку
-            .catch(err => {
-                console.error(err)
-                dispatch(setModalName(MODAL_NAME.FAILURE_MODAL));
-            });
-
-    }, [userToAdd, userList, setModalName]);
 
     const prepareUserToAdd = useCallback((value) => {
         setUserToAdd(prevState => ({
@@ -251,7 +237,7 @@ const UserTable = ({
                 <ButtonWrapper>
                     <Button
                         text={'Add element'}
-                        onClick={() => addItemToList()}
+                        onClick={() => adUserToList()}
                         disabled={isAddButtonDisabled}
                     />
                     <Button
