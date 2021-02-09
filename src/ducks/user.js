@@ -149,6 +149,8 @@ const initialState = {
     }
 };
 
+const searchingUsers = () => (dispatch, getState) => {}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_USER_LIST_START:

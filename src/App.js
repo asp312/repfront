@@ -14,6 +14,10 @@ function App() {
     const location = useLocation();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(searchingUsers())
+    }, [searchString, currentPage]);
+
     // Поиск на стороне сервера
     // useEffect(() => {
     //     const fetchData = async () => {
@@ -61,10 +65,7 @@ export default App;
  * TODO:
  *  1. Вытащить в Store:
  *      1.1. Логику поиска в Store
- *      1.2. Логику добавления
- *      1.3. Логику изменения
- *      1.4. Логику удаления
- *  2. Зарефачить страницу UserInfo c учетом новой архитектуры
+ *      1.2. Логику удаления
  */
 
 
