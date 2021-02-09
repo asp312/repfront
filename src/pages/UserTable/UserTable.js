@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import Paper from '@material-ui/core/Paper';
 import FormControl from '@material-ui/core/FormControl';
 import Pagination from '@material-ui/lab/Pagination';
@@ -12,9 +12,9 @@ import Alert from '@material-ui/lab/Alert';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Button, Input, Table, Title, SearchInput } from '../../components';
-import { DATA_PER_PAGE, MODAL_NAME } from '../../constants';
-import {fetchUserList, setCurrentPage, adUserToList} from '../../ducks/user';
-import { setModalName } from '../../ducks/modal';
+import { DATA_PER_PAGE } from '../../constants';
+import {fetchUserList, setCurrentPage, addUserToList, changeUserField, updateUserInfo} from '../../ducks/user';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -91,33 +91,20 @@ const UserTable = ({
         userToAdd: state.userReducer.userToAdd
     }));
 
-    //const [userToAdd, setUserToAdd] = useState({
-      //  name: '',
-        //username: '',
-        //age: '',
-        //sex: '',
-        //email: '',
-        //address: '',
-        //phone: '',
-        //website:'',
-        //company: ''
-    //});
-
     const isAddButtonDisabled = !userToAdd.name || !userToAdd.username || !userToAdd.age || !userToAdd.sex;
 
-
     const prepareUserToAdd = useCallback((value) => {
-        setUserToAdd(prevState => ({
-            ...prevState,
-            ...value
-        }))
+        dispatch(changeUserField(value));
     }, [userToAdd]);
 
+    const prepareUserToUpdate = useCallback((userToUpdate) => {
+        dispatch(changeUserField(userToUpdate));
+    }, []);
+
     const handleSelectChange = useCallback((e) => {
-        setUserToAdd(prevState => ({
-            ...prevState,
+        dispatch(changeUserField({
             [e.target.name]: e.target.value
-        }))
+        }));
     }, [userToAdd]);
 
     const handleChangePage = useCallback((e, page) => {
@@ -125,16 +112,7 @@ const UserTable = ({
     }, []);
 
     const changeItemInList = useCallback(() => {
-        fetch(`http://localhost:3001/users/${userToAdd.id}`, {
-            method: 'PUT',
-            body: JSON.stringify(userToAdd),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(() => {
-            dispatch(fetchUserList());
-        })
+        dispatch(updateUserInfo());
     }, [userToAdd]);
 
     return (
@@ -237,7 +215,7 @@ const UserTable = ({
                 <ButtonWrapper>
                     <Button
                         text={'Add element'}
-                        onClick={() => adUserToList()}
+                        onClick={() => dispatch(addUserToList())}
                         disabled={isAddButtonDisabled}
                     />
                     <Button
@@ -258,7 +236,7 @@ const UserTable = ({
                 }
                 {
                     !isListEmpty && (
-                        <Table arr={userList} changeItem={setUserToAdd} />
+                        <Table arr={userList} changeItem={prepareUserToUpdate} />
                     )
                 }
                 {

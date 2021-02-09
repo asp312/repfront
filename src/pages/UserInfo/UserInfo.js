@@ -36,16 +36,16 @@ const Wrapper = styled(Box)({
 const TypWrapper = styled(Box)({
     marginLeft: '40%',
 });
-const dispatch = useDispatch();
-const {
-    userList
-} = useSelector((state) => ({
-    userList: state.userReducer.userList,
-}));
 
 function UserInfo() {
-
     const params = useParams();
+    const dispatch = useDispatch();
+
+    const { selectedUser } = useSelector((state) => ({
+        selectedUser: state.userReducer.userList.find((user) => {
+            return user.id === +params.id;
+        })
+    }));
 
     const handleOpenSuccessModal = useCallback(
         () => dispatch(setModalName(MODAL_NAME.SUCCESS_MODAL)),
@@ -56,11 +56,7 @@ function UserInfo() {
         [],
     );
 
-    const item = userList.find((user) => {
-       return user.id === +params.id;
-    });
-
-    if (!item) {
+    if (!selectedUser) {
         return <h5>Loading</h5>
     }
 
@@ -76,15 +72,15 @@ function UserInfo() {
                 <Wrapper></Wrapper>
                 <Wrapper>
                     <List>
-                        <ListItem>Name: {item.name}</ListItem>
-                        <ListItem>Userame: {item.username}</ListItem>
-                        <ListItem>EMAIL: {item.email}</ListItem>
-                        <ListItem>address: {item.address}</ListItem>
-                        <ListItem>phone: {item.phone}</ListItem>
-                        <ListItem>website: {item.website}</ListItem>
-                        <ListItem>company: {item.company}</ListItem>
-                        <ListItem>sex: {item.sex}</ListItem>
-                        <ListItem>age: {item.age}</ListItem>
+                        <ListItem>Name: {selectedUser.name}</ListItem>
+                        <ListItem>Userame: {selectedUser.username}</ListItem>
+                        <ListItem>EMAIL: {selectedUser.email}</ListItem>
+                        <ListItem>address: {selectedUser.address}</ListItem>
+                        <ListItem>phone: {selectedUser.phone}</ListItem>
+                        <ListItem>website: {selectedUser.website}</ListItem>
+                        <ListItem>company: {selectedUser.company}</ListItem>
+                        <ListItem>sex: {selectedUser.sex}</ListItem>
+                        <ListItem>age: {selectedUser.age}</ListItem>
                     </List>
                 </Wrapper>
             </GridWrapper>

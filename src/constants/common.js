@@ -1,1 +1,1 @@
-export const DATA_PER_PAGE = 2;
+export const DATA_PER_PAGE = 10;

@@ -36,7 +36,10 @@ export const ModalBlock = () => {
         fetch(`http://localhost:3001/users/${params.id}`, {
             method: 'DELETE',
         })
-            .then(() => history.push('/'))
+            .then(() => {
+                dispatch(resetState());
+                history.push('/');
+            })
             .catch(err => {
                 console.error(err)
                 dispatch(setModalName(MODAL_NAME.FAILURE_MODAL));

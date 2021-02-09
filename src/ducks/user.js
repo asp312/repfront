@@ -1,5 +1,5 @@
-import { DATA_PER_PAGE } from '../constants';
-import { setModalName } from '../../ducks/modal';
+import {DATA_PER_PAGE, MODAL_NAME} from '../constants';
+import { setModalName } from './modal';
 
 const SET_AMOUNT_OF_USERS = '@USER/SET_AMOUNT_OF_USERS';
 const SET_CURRENT_PAGE = '@USER/SET_CURRENT_PAGE';
@@ -11,6 +11,24 @@ const FETCH_USER_LIST_ERROR = '@USER/FETCH_USER_LIST_ERROR';
 const ADD_USER_TO_LIST_START = '@USER/ADD_USER_TO_LIST_START';
 const ADD_USER_TO_LIST_SUCCESS = '@USER/ADD_USER_TO_LIST_SUCCESS';
 const ADD_USER_TO_LIST_ERROR = '@USER/ADD_USER_TO_LIST_ERROR';
+
+const CHANGE_USER_START = '@USER/CHANGE_USER_START';
+const CHANGE_USER_SUCCESS = '@USER/CHANGE_USER_SUCCESS';
+const CHANGE_USER_ERROR = '@USER/ADD_USER_ERROR';
+
+const CHANGE_USER_FIELD = '@USER/CHANGE_USER_FIELD';
+
+const changeUserStart = () => ({
+    type: CHANGE_USER_START
+});
+
+const changeUserStartSuccess = () => ({
+    type: CHANGE_USER_SUCCESS
+});
+
+const changeUserStartError = () => ({
+    type: CHANGE_USER_ERROR
+});
 
 const setAmountOfUsers = (amountOfUsers) => ({
     type: SET_AMOUNT_OF_USERS,
@@ -35,6 +53,11 @@ const fetchUserListError = () => ({
     type: FETCH_USER_LIST_ERROR
 });
 
+export const changeUserField = (inputValue) => ({
+    type: CHANGE_USER_FIELD,
+    payload: inputValue // { [name]: '' }
+});
+
 export const fetchUserList = () => (dispatch, getState) => {
     const { currentPage } = getState().userReducer;
 
@@ -57,16 +80,15 @@ const addUserToListStart = () => ({
     type: ADD_USER_TO_LIST_START
  });
 
-const addUserToListSuccess = (userToAdd) => ({
-    type: ADD_USER_TO_LIST_SUCCESS,
-    payload: userToAdd
+const addUserToListSuccess = () => ({
+    type: ADD_USER_TO_LIST_SUCCESS
 });
 
 const addUserToListError = () => ({
     type: ADD_USER_TO_LIST_ERROR
 });
 
-export const adUserToList = () => (dispatch, getState) => {
+export const addUserToList = () => (dispatch, getState) => {
     const { userToAdd } = getState().userReducer;
 
     dispatch(addUserToListStart());
@@ -79,7 +101,7 @@ export const adUserToList = () => (dispatch, getState) => {
         },
     })
         .then(() => {
-            dispatch(addUserToListSuccess(userToAdd));
+            dispatch(addUserToListSuccess());
             dispatch(setModalName(MODAL_NAME.SUCCESS_MODAL));
         })
         .catch(err => {
@@ -87,6 +109,25 @@ export const adUserToList = () => (dispatch, getState) => {
             dispatch(addUserToListError());
         });
 }
+
+export const updateUserInfo = () => (dispatch, getState) => {
+    const { userToAdd } = getState().userReducer;
+
+    dispatch(changeUserStart());
+
+    fetch(`http://localhost:3001/users/${userToAdd.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(userToAdd),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(() => {
+            dispatch(changeUserStartSuccess());
+            dispatch(fetchUserList());
+        })
+        .catch(() => dispatch(changeUserStartError()));
+};
 
 const initialState = {
     userList: [],
@@ -96,16 +137,16 @@ const initialState = {
     isError: false,
     searchString: '',
     userToAdd: {
-    name: '',
-    username: '',
-    age: '',
-    sex: '',
-    email: '',
-    address: '',
-    phone: '',
-    website:'',
-    company: ''
-    } 
+        name: '',
+        username: '',
+        age: '',
+        sex: '',
+        email: '',
+        address: '',
+        phone: '',
+        website:'',
+        company: ''
+    }
 };
 
 const reducer = (state = initialState, action) => {
@@ -139,24 +180,51 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 currentPage: action.payload
             };
-            case ADD_USER_TO_LIST_START:
+        case ADD_USER_TO_LIST_START:
             return {
                 ...state,
                 isFetching: true,
                 isError: false
             };
-            case ADD_USER_TO_LIST_SUCCESS:
+        case ADD_USER_TO_LIST_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
                 isError: false,
-                userList: action.payload,
+                userToAdd: { ...initialState.userToAdd }
             };
-            case ADD_USER_TO_LIST_ERROR:
+        case ADD_USER_TO_LIST_ERROR:
             return {
                 ...state,
                 isFetching: false,
                 isError: true
+            };
+        case CHANGE_USER_FIELD:
+            return {
+                ...state,
+                userToAdd: {
+                    ...state.userToAdd,
+                    ...action.payload
+                }
+            };
+        case CHANGE_USER_START:
+            return {
+                ...state,
+                isFetching: true,
+                isError: false,
+            };
+        case CHANGE_USER_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                isError: false,
+                userToAdd: { ...initialState.userToAdd }
+            };
+        case CHANGE_USER_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                isError: true,
             };
         default:
             return { ...state };
