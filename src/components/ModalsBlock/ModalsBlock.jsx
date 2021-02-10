@@ -6,7 +6,7 @@ import { ChoiceModal } from './ChoiceModal';
 import {MODAL_NAME} from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetState } from '../../ducks/modal';
-import { deleteUser } from '../../ducks/user';
+import { deleteUser, fetchUserList } from '../../ducks/user';
 import { useHistory } from 'react-router-dom';
 
 export const ModalBlock = () => {
@@ -36,6 +36,7 @@ export const ModalBlock = () => {
     const handleButtonClick = useCallback(() => {
         dispatch(deleteUser(params));
         history.push('/');
+        dispatch(fetchUserList());
     }, []);
 
 

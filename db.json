@@ -1,16 +1,40 @@
 {
   "users": [
     {
-      "name": "Andrey",
-      "username": "MEGATRON",
-      "age": "12",
-      "sex": "Men",
-      "email": "andrew@your-gift.ru",
-      "address": "Гоголя, 49",
-      "phone": "123123123",
-      "website": "aasd",
-      "company": "asd",
-      "id": 25544
+      "name": "ascf",
+      "username": "ZD2E-T9UR-4XC7-JK8U",
+      "age": "6",
+      "sex": "Women",
+      "email": "",
+      "address": "",
+      "phone": "",
+      "website": "",
+      "company": "",
+      "id": 1
+    },
+    {
+      "name": "олег",
+      "username": "олеговой",
+      "age": "4",
+      "sex": "Robot",
+      "email": "",
+      "address": "",
+      "phone": "",
+      "website": "",
+      "company": "",
+      "id": 2
+    },
+    {
+      "name": "петр",
+      "username": "перовой",
+      "age": "9",
+      "sex": "Women",
+      "email": "",
+      "address": "",
+      "phone": "",
+      "website": "",
+      "company": "",
+      "id": 3
     }
   ]
 }

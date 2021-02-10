@@ -23,6 +23,23 @@ const DELETE_USER_START = '@USER/DELETE_USER_START';
 const DELETE_USER_SUCCESS = '@USER/DELETE_USER_SUCCESS';
 const DELETE_USER_ERROR = '@USER/DELETE_USER_ERROR';
 
+const SEARCH_USER_START = '@USER/SEARCH_USER_START';
+const SEARCH_USER_SUCCESS = '@USER/SEARCH_USER_SUCCESS';
+const SEARCH_USER_ERROR = '@USSEARCH_USER_ERROR';
+
+
+const searchUserStart = () => ({
+    type: SEARCH_USER_START
+});
+
+const searchUserSuccess = () => ({
+    type: SEARCH_USER_SUCCESS
+});
+
+const searchUserError = () => ({
+    type: SEARCH_USER_ERROR
+});
+
 const deleteUserStart = () => ({
     type: DELETE_USER_START
 });
@@ -120,6 +137,7 @@ export const addUserToList = () => (dispatch, getState) => {
         .then(() => {
             dispatch(addUserToListSuccess());
             dispatch(setModalName(MODAL_NAME.SUCCESS_MODAL));
+            dispatch(fetchUserList());
         })
         .catch(err => {
             console.error(err)
@@ -155,6 +173,7 @@ export const deleteUser = (params) => (dispatch, getState) => {
         })
             .then(() => {
                 dispatch(deleteUserSuccess());
+                dispatch(fetchUserList());
                 dispatch(resetState());
             })
             .catch(err => {
@@ -183,7 +202,22 @@ const initialState = {
     }
 };
 
-// const searchingUsers = () => (dispatch, getState) => {}
+ export const searchingUsers = (searchString) => (dispatch, getState) => {
+    
+    const { currentPage } = getState().userReducer;
+
+        dispatch(searchUserStart());
+            fetch(`http://localhost:3001/users?q=${searchString}&_page=${currentPage}&_limit=${DATA_PER_PAGE}`)
+                    .then(res => res.json())
+                    //.then(dataInJSON => setList(dataInJSON))
+                    .then(() => {
+                        dispatch(searchUserSuccess());
+                    }) 
+                    .catch((err) => {
+                        dispatch(searchUserError());
+                        dispatch(setModalName(MODAL_NAME.FAILURE_MODAL));
+                    })
+ }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -262,7 +296,7 @@ const reducer = (state = initialState, action) => {
                 isFetching: false,
                 isError: true,
             };
-            case DELETE_USER_START:
+        case DELETE_USER_START:
             return {
                 ...state,
                 isFetching: true,
@@ -270,11 +304,27 @@ const reducer = (state = initialState, action) => {
             };
         case DELETE_USER_SUCCESS:
             return {
-                ...state.splice(...initialState.userToAdd.id, 1),
                 isFetching: false,
                 isError: false,
             };
         case DELETE_USER_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                isError: true,
+            };
+        case SEARCH_USER_START:
+            return {
+                ...state,
+                isFetching: true,
+                isError: false,
+            };
+        case SEARCH_USER_SUCCESS:
+            return {
+                isFetching: false,
+                isError: false,
+            };
+        case SEARCH_USER_ERROR:
             return {
                 ...state,
                 isFetching: false,

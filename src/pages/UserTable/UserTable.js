@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { Button, Input, Table, Title, SearchInput } from '../../components';
 import { DATA_PER_PAGE } from '../../constants';
-import {fetchUserList, setCurrentPage, addUserToList, changeUserField, updateUserInfo} from '../../ducks/user';
+import {fetchUserList, setCurrentPage, addUserToList, changeUserField, updateUserInfo, searchingUsers} from '../../ducks/user';
 
 
 
@@ -59,8 +59,7 @@ const GridWrapper = styled(Box)({
 
 
 const UserTable = ({
-    searchString,
-    setSearchString,
+    searchString
 }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -92,6 +91,10 @@ const UserTable = ({
     }));
 
     const isAddButtonDisabled = !userToAdd.name || !userToAdd.username || !userToAdd.age || !userToAdd.sex;
+
+    const setSearchString = useCallback((searchString) => {
+        dispatch(searchingUsers(searchString))
+    }, [])
 
     const prepareUserToAdd = useCallback((value) => {
         dispatch(changeUserField(value));

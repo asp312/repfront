@@ -4,19 +4,25 @@ import './style.css';
 import UserTable from './pages/UserTable/UserTable';
 import UserInfo from './pages/UserInfo/UserInfo';
 import { ModalBlock } from './components';
-import { useDispatch } from 'react-redux';
-import { fetchUserList } from './ducks/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserList, searchingUsers } from './ducks/user';
 
 
 function App() {
     const [searchString, setSearchString] = useState('');
+    const {
+        currentPage
+    } = useSelector((state) => ({
+        currentPage: state.userReducer.currentPage
+    }));
+
 
     const location = useLocation();
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(searchingUsers())
-    // }, [searchString, currentPage]);
+     useEffect(() => {
+         dispatch(searchingUsers())
+     }, [searchString, currentPage]);
 
     // Поиск на стороне сервера
     // useEffect(() => {
