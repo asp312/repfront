@@ -25,15 +25,17 @@ const DELETE_USER_ERROR = '@USER/DELETE_USER_ERROR';
 
 const SEARCH_USER_START = '@USER/SEARCH_USER_START';
 const SEARCH_USER_SUCCESS = '@USER/SEARCH_USER_SUCCESS';
-const SEARCH_USER_ERROR = '@USSEARCH_USER_ERROR';
+const SEARCH_USER_ERROR = '@USER/SEARCH_USER_ERROR';
 
 
-const searchUserStart = () => ({
-    type: SEARCH_USER_START
+export const searchUserStart = (searchString) => ({
+    type: SEARCH_USER_START,
+    payload: searchString
 });
 
-const searchUserSuccess = () => ({
-    type: SEARCH_USER_SUCCESS
+const searchUserSuccess = (searchedUsers) => ({
+    type: SEARCH_USER_SUCCESS,
+    payload: searchedUsers
 });
 
 const searchUserError = () => ({
@@ -202,21 +204,24 @@ const initialState = {
     }
 };
 
- export const searchingUsers = (searchString) => (dispatch, getState) => {
-    
-    const { currentPage } = getState().userReducer;
+ export const searchingUsers = () => (dispatch, getState) => {
 
-        dispatch(searchUserStart());
+    const { currentPage, searchString } = getState().userReducer;
+
+        if (!!searchString) {
+            dispatch(searchUserStart());
+
             fetch(`http://localhost:3001/users?q=${searchString}&_page=${currentPage}&_limit=${DATA_PER_PAGE}`)
-                    .then(res => res.json())
-                    //.then(dataInJSON => setList(dataInJSON))
-                    .then(() => {
-                        dispatch(searchUserSuccess());
-                    }) 
-                    .catch((err) => {
-                        dispatch(searchUserError());
-                        dispatch(setModalName(MODAL_NAME.FAILURE_MODAL));
-                    })
+                .then(res => res.json())
+                //.then(dataInJSON => setList(dataInJSON))
+                .then((dataInJson) => {
+                    dispatch(searchUserSuccess(dataInJson));
+                })
+                .catch((err) => {
+                    dispatch(searchUserError());
+                    dispatch(setModalName(MODAL_NAME.FAILURE_MODAL));
+                })
+        }
  }
 
 const reducer = (state = initialState, action) => {
@@ -304,6 +309,7 @@ const reducer = (state = initialState, action) => {
             };
         case DELETE_USER_SUCCESS:
             return {
+                ...state,
                 isFetching: false,
                 isError: false,
             };
@@ -318,11 +324,14 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isFetching: true,
                 isError: false,
+                searchString: action.payload
             };
         case SEARCH_USER_SUCCESS:
             return {
+                ...state,
                 isFetching: false,
                 isError: false,
+                userList: action.payload
             };
         case SEARCH_USER_ERROR:
             return {

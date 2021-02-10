@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, useLocation } from 'react-router';
 import './style.css';
 import UserTable from './pages/UserTable/UserTable';
@@ -9,11 +9,12 @@ import { fetchUserList, searchingUsers } from './ducks/user';
 
 
 function App() {
-    const [searchString, setSearchString] = useState('');
     const {
-        currentPage
+        currentPage,
+        searchString
     } = useSelector((state) => ({
-        currentPage: state.userReducer.currentPage
+        currentPage: state.userReducer.currentPage,
+        searchString: state.userReducer.searchString
     }));
 
 
@@ -21,7 +22,7 @@ function App() {
     const dispatch = useDispatch();
 
      useEffect(() => {
-         dispatch(searchingUsers())
+         dispatch(searchingUsers());
      }, [searchString, currentPage]);
 
     // Поиск на стороне сервера
@@ -48,10 +49,7 @@ function App() {
                     <Route
                         exact path="/"
                         render={() => (
-                            <UserTable
-                                searchString={searchString}
-                                setSearchString={setSearchString}
-                            />
+                            <UserTable />
                         )}
                     />
                     <Route

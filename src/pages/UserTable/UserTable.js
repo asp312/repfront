@@ -13,7 +13,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { Button, Input, Table, Title, SearchInput } from '../../components';
 import { DATA_PER_PAGE } from '../../constants';
-import {fetchUserList, setCurrentPage, addUserToList, changeUserField, updateUserInfo, searchingUsers} from '../../ducks/user';
+import {
+    setCurrentPage,
+    addUserToList,
+    changeUserField,
+    updateUserInfo,
+    searchUserStart
+} from '../../ducks/user';
 
 
 
@@ -58,9 +64,7 @@ const GridWrapper = styled(Box)({
 });
 
 
-const UserTable = ({
-    searchString
-}) => {
+const UserTable = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -71,7 +75,8 @@ const UserTable = ({
         amountOfUsers,
         currentPage,
         isListEmpty,
-        shouldShowPagination
+        shouldShowPagination,
+        searchString
     } = useSelector((state) => ({
         userList: state.userReducer.userList,
         amountOfUsers: state.userReducer.amountOfUsers,
@@ -80,6 +85,7 @@ const UserTable = ({
         shouldShowPagination: state.userReducer.amountOfUsers > 10,
         isFetching: state.userReducer.isFetching,
         isError: state.userReducer.isError,
+        searchString: state.userReducer.searchString
     }));
 
     const countOfPages = Math.round(amountOfUsers / DATA_PER_PAGE);
@@ -93,7 +99,7 @@ const UserTable = ({
     const isAddButtonDisabled = !userToAdd.name || !userToAdd.username || !userToAdd.age || !userToAdd.sex;
 
     const setSearchString = useCallback((searchString) => {
-        dispatch(searchingUsers(searchString))
+        dispatch(searchUserStart(searchString))
     }, [])
 
     const prepareUserToAdd = useCallback((value) => {
